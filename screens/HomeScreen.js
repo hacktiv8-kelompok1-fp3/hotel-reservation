@@ -1,4 +1,4 @@
-import { View, StyleSheet, TextInput, Text, Image, Button } from "react-native";
+import { View, StyleSheet, TextInput, Text, Image } from "react-native";
 import {
   Ionicons,
   MaterialCommunityIcons,
@@ -15,11 +15,16 @@ export default function HomeScreen() {
       <View style={styles.appContainer}>
         {/* location Notif */}
         <View style={styles.infoContainer}>
-          <View>
-            <Text>Current Location</Text>
-            <View style={styles.locationContainer}>
-              <Ionicons name="md-location-sharp" size={20} color="#B36A34" />
-              <Text style={styles.locationTitle}>Blitung, Sulawesi Utara</Text>
+          <View style={styles.shortProfilContainer}>
+            <Image
+              source={require("../assets/images/man-avatar.png")}
+              style={styles.profilePicture}
+            />
+            <View style={styles.welcomeContainer}>
+              <Text style={styles.welcomeWord}>👋🏼 HELLO THERE </Text>
+              <Text style={styles.userName}>
+                {"Gilang Ahmad" || dataFromState}
+              </Text>
             </View>
           </View>
           {/*  */}
@@ -51,11 +56,13 @@ export default function HomeScreen() {
             <ViewAllButton>View All</ViewAllButton>
           </View>
           <View>
-            <Image></Image>
-            <Text>TitleOfCard</Text>
-            <Text>Price</Text>
-            <Text>Location</Text>
-            <Text>Info</Text>
+            <View style={styles.card}>
+              <Image></Image>
+              <Text>TitleOfCard</Text>
+              <Text>Price</Text>
+              <Text>Location</Text>
+              <Text>Info</Text>
+            </View>
           </View>
         </View>
 
@@ -74,7 +81,6 @@ export default function HomeScreen() {
             <Text>Info</Text>
           </View>
         </View>
-        {/* Navbar */}
       </View>
     </>
   );
@@ -82,11 +88,12 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   appContainer: {
-    justifyContent: "space-around",
-    backgroundColor: "#DDD",
+    backgroundColor: "white",
     alignItems: "center",
     marginVertical: 25,
   },
+
+  // top
   infoContainer: {
     width: "90%",
     flexDirection: "row",
@@ -94,27 +101,43 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginVertical: 10,
   },
-
-  locationContainer: {
+  shortProfilContainer: {
     flexDirection: "row",
   },
-  locationTitle: {
+  profilePicture: {
+    width: 35,
+    height: 35,
+    borderRadius: 50,
+    borderColor: "black",
+    borderWidth: 2,
+  },
+  welcomeContainer: {
+    padding: 1,
+    height: 35,
+    marginLeft: 4,
+  },
+  welcomeWord: {
+    fontSize: 10,
+    color: "#9D9D9D",
     fontWeight: "bold",
-    fontSize: 15,
+  },
+  userName: {
+    fontWeight: "bold",
   },
   bellIcon: {
-    backgroundColor: "white",
+    backgroundColor: "#DDD",
     padding: 4,
 
     borderRadius: 50,
     justifyContent: "center",
   },
+
   //search bar
   searchContainer: {
     flexDirection: "row",
     width: "85%",
     justifyContent: "space-between",
-    backgroundColor: "white",
+    backgroundColor: "#DDD",
     padding: 10,
     borderRadius: 40,
     marginVertical: 10,
@@ -124,10 +147,11 @@ const styles = StyleSheet.create({
     flex: 1,
     marginHorizontal: 20,
   },
+
   //first-section
   SectionContainer: {
     marginVertical: 15,
-    backgroundColor: "white",
+    backgroundColor: "#DDD",
     borderRadius: 20,
     width: "100%",
     padding: 10,
@@ -141,5 +165,10 @@ const styles = StyleSheet.create({
   firstSectionTitle: {
     fontSize: 18,
     fontWeight: "bold",
+  },
+  card: {
+    borderWidth: 2,
+    borderColor: "black",
+    padding: 5,
   },
 });
