@@ -8,6 +8,7 @@ import Home from "../pages/Home";
 import MyOrder from "../pages/MyOrder";
 import Favorites from "../pages/Favorites";
 import Profile from "../pages/Profile";
+import Login from "../pages/Login";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -55,6 +56,11 @@ export default function Router() {
       <Stack.Screen
         name="Booking"
         component={Booking}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Login"
+        component={Login}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

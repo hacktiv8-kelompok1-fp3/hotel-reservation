@@ -11,8 +11,38 @@ import {
 import Icon from "react-native-vector-icons/MaterialIcons";
 import mainColors from "../../utils/colors";
 import hotel from "../../const/hotels";
+import { useDispatch } from "react-redux";
+import { addDetailHotel } from "../../redux/reducer/slice-bookingData";
+import { useState } from "react";
+import {
+  addFavorites,
+  removeFavorites,
+} from "../../redux/reducer/slice-favorites";
 
 const DetailHotel = ({ navigation }) => {
+  const [isFavorite, setIsFavorite] = useState(false);
+  const dispatch = useDispatch();
+  const hotels = {
+    id: hotel.id,
+    name: hotel.name,
+    location: hotel.location,
+    price: hotel.price,
+    image: hotel.price,
+    details: hotel.details,
+  };
+  const handleClickBook = () => {
+    dispatch(addDetailHotel(hotels));
+    navigation.navigate("Booking");
+  };
+  const handleClickFavorites = () => {
+    if (isFavorite) {
+      dispatch(removeFavorites(hotels?.id));
+      setIsFavorite(false);
+    } else {
+      dispatch(addFavorites(hotels));
+      setIsFavorite(true);
+    }
+  };
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -28,7 +58,21 @@ const DetailHotel = ({ navigation }) => {
       <ImageBackground style={styles.headerImage} source={hotel.image}>
         <View style={styles.header}>
           <Icon name="arrow-back-ios" color={mainColors.white} size={28} />
-          <Icon name="bookmark-border" color={mainColors.white} size={28} />
+          {isFavorite ? (
+            <Icon
+              name="favorite"
+              color={mainColors.pink}
+              size={28}
+              onPress={handleClickFavorites}
+            />
+          ) : (
+            <Icon
+              name="favorite-outline"
+              color={mainColors.white}
+              size={28}
+              onPress={handleClickFavorites}
+            />
+          )}
         </View>
       </ImageBackground>
       <View>
@@ -60,10 +104,7 @@ const DetailHotel = ({ navigation }) => {
               /PERDAY
             </Text>
           </View>
-          <TouchableOpacity
-            style={styles.bookNow}
-            onPress={() => navigation.navigate("Booking")}
-          >
+          <TouchableOpacity style={styles.bookNow} onPress={handleClickBook}>
             <Text
               style={{
                 fontSize: 12,
@@ -94,7 +135,7 @@ const styles = StyleSheet.create({
   location: {
     fontSize: 12,
     fontWeight: "400",
-    color: mainColors.grey,
+    color: mainColors.grey1,
     marginTop: 5,
   },
   countRating: {
@@ -104,7 +145,7 @@ const styles = StyleSheet.create({
   },
   reviews: {
     fontSize: 13,
-    color: mainColors.grey,
+    color: mainColors.grey1,
   },
   description: {
     marginTop: 20,
@@ -134,7 +175,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     height: 60,
     width: 60,
-    backgroundColor: mainColors.dark,
+    backgroundColor: mainColors.primary2,
     top: -30,
     right: 30,
     justifyContent: "center",
@@ -156,7 +197,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: 70,
     marginTop: 40,
-    backgroundColor: mainColors.dark,
+    backgroundColor: mainColors.primary3,
     paddingHorizontal: 20,
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,

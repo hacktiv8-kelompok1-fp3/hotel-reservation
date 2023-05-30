@@ -3,6 +3,8 @@ import "react-native-gesture-handler";
 import Router from "./src/router";
 import { StatusBar } from "react-native";
 import mainColors from "./src/utils/colors";
+import { Provider } from "react-redux";
+import store from "./src/redux/store";
 
 function MainApp() {
   return (
@@ -14,5 +16,9 @@ function MainApp() {
 }
 
 export default function App() {
-  return <MainApp />;
+  return (
+    <Provider store={store}>
+      <MainApp />
+    </Provider>
+  );
 }
