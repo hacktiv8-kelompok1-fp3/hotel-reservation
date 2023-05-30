@@ -1,6 +1,5 @@
 import { View, StyleSheet, TextInput, Text, Image } from "react-native";
 import {
-  Ionicons,
   MaterialCommunityIcons,
   AntDesign,
   Octicons,
@@ -12,7 +11,7 @@ export default function HomeScreen() {
   return (
     <>
       <StatusBar style="dark" />
-      <View style={styles.appContainer}>
+      <View style={styles.homeContainer}>
         {/* location Notif */}
         <View style={styles.infoContainer}>
           <View style={styles.shortProfilContainer}>
@@ -59,7 +58,7 @@ export default function HomeScreen() {
             <View style={styles.card}>
               <Image></Image>
               <Text>TitleOfCard</Text>
-              <Text>Price</Text>
+              <Text>$500</Text>
               <Text>Location</Text>
               <Text>Info</Text>
             </View>
@@ -87,7 +86,7 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  appContainer: {
+  homeContainer: {
     backgroundColor: "white",
     alignItems: "center",
     marginVertical: 25,
