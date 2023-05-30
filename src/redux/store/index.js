@@ -12,7 +12,9 @@ const rootReducers = combineReducers({
 const store = configureStore({
   reducer: rootReducers,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(hotelsApi.middleware),
+    getDefaultMiddleware({ serializableCheck: false }).concat(
+      hotelsApi.middleware
+    ),
 });
 
 export default store;

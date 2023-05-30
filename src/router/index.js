@@ -42,7 +42,7 @@ function MainApp() {
 
 export default function Router() {
   return (
-    <Stack.Navigator initialRouteName="MainApp">
+    <Stack.Navigator initialRouteName="DetailHotel">
       <Stack.Screen
         name="MainApp"
         component={MainApp}
