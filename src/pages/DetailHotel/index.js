@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import mainColors from "../../utils/colors";
-import hotel from "../../const/hotels";
+// import hotel from "../../const/hotels";
 import { useDispatch } from "react-redux";
 import { addDetailHotel } from "../../redux/reducer/slice-bookingData";
 import { useState } from "react";
@@ -19,27 +19,28 @@ import {
   removeFavorites,
 } from "../../redux/reducer/slice-favorites";
 
-const DetailHotel = ({ navigation }) => {
+const DetailHotel = ({ navigation, route }) => {
+  const hotel = route.params;
   const [isFavorite, setIsFavorite] = useState(false);
   const dispatch = useDispatch();
-  const hotels = {
-    id: hotel.id,
-    name: hotel.name,
-    location: hotel.location,
-    price: hotel.price,
-    image: hotel.price,
-    details: hotel.details,
-  };
+  // const hotels = {
+  //   id: hotel.id,
+  //   name: hotel.name,
+  //   location: hotel.location,
+  //   price: hotel.price,
+  //   image: hotel.price,
+  //   details: hotel.details,
+  // };
   const handleClickBook = () => {
-    dispatch(addDetailHotel(hotels));
+    dispatch(addDetailHotel(hotel));
     navigation.navigate("Booking");
   };
   const handleClickFavorites = () => {
     if (isFavorite) {
-      dispatch(removeFavorites(hotels?.id));
+      dispatch(removeFavorites(hotel?.id));
       setIsFavorite(false);
     } else {
-      dispatch(addFavorites(hotels));
+      dispatch(addFavorites(hotel));
       setIsFavorite(true);
     }
   };
@@ -57,7 +58,12 @@ const DetailHotel = ({ navigation }) => {
       />
       <ImageBackground style={styles.headerImage} source={hotel.image}>
         <View style={styles.header}>
-          <Icon name="arrow-back-ios" color={mainColors.white} size={28} />
+          <Icon
+            name="arrow-back-ios"
+            color={mainColors.white}
+            size={28}
+            onPress={navigation.goBack}
+          />
           {isFavorite ? (
             <Icon
               name="favorite"

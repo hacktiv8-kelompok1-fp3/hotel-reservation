@@ -1,6 +1,7 @@
 import React from "react";
 import {
   ImageBackground,
+  Pressable,
   ScrollView,
   StatusBar,
   StyleSheet,
@@ -50,7 +51,7 @@ const Booking = ({ navigation }) => {
     <ImageBackground
       style={styles.conatiner}
       imageStyle={styles.image}
-      source={hotel.image}
+      source={detailhotel.image}
     >
       <StatusBar hidden />
       <HeaderBooking

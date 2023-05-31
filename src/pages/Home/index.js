@@ -7,173 +7,99 @@ import {
 } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 import ViewAllButton from "../../components/ViewAllButton.js";
-import { View, StyleSheet, Text, Image, TextInput } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  Image,
+  TextInput,
+  SafeAreaView,
+  ScrollView,
+  FlatList,
+} from "react-native";
 import { useGetAllHotelsQuery } from "../../redux/reducer/slice-hotel";
-
-const Home = () => {
+import mainColors from "../../utils/colors/index.js";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import Card from "../../components/Card/index.js";
+import hotels from "../../const/hotels.js";
+const Home = ({ navigation }) => {
   const { data } = useGetAllHotelsQuery();
-  // console.log("data", data);
+  console.log("data", data);
   return (
-    <>
-      <StatusBar style="dark" />
-      <View style={styles.appContainer}>
-        {/* location Notif */}
-        <View style={styles.infoContainer}>
-          <View style={styles.shortProfilContainer}>
-            <Image
-              source={require("../../assets/man-avatar.png")}
-              style={styles.profilePicture}
-            />
-            <View style={styles.welcomeContainer}>
-              <Text style={styles.welcomeWord}>👋🏼 HELLO THERE </Text>
-              <Text style={styles.userName}>
-                {"Gilang Ahmad" || dataFromState}
-              </Text>
-            </View>
-          </View>
-          {/*  */}
-
-          <MaterialCommunityIcons
-            style={styles.bellIcon}
-            name="bell-outline"
-            size={30}
-            color="black"
-          />
-        </View>
-
-        {/* search bar */}
-        <View style={styles.searchContainer}>
-          <AntDesign name="search1" size={24} color="black" />
-          <TextInput
-            style={styles.textInput}
-            placeholder="Search here..."
-          ></TextInput>
-          <Octicons name="filter" size={24} color="black" />
-        </View>
-        {/*  */}
-
-        {/* first-section */}
-        <View style={styles.SectionContainer}>
-          <View style={styles.SectionTitleContainer}>
-            <Text style={styles.firstSectionTitle}>House Near You</Text>
-            {/* <Button title="View All" /> */}
-            <ViewAllButton>View All</ViewAllButton>
-          </View>
-          <View>
-            <View style={styles.card}>
-              <Image></Image>
-              <Text>TitleOfCard</Text>
-              <Text>Price</Text>
-              <Text>Location</Text>
-              <Text>Info</Text>
-            </View>
-          </View>
-        </View>
-
-        {/* second-section */}
-        <View style={styles.SectionContainer}>
-          <View style={styles.SectionTitleContainer}>
-            <Text style={styles.firstSectionTitle}>Featured Listings</Text>
-            {/* <Button title="View All" /> */}
-            <ViewAllButton>View All</ViewAllButton>
-          </View>
-          <View>
-            <Image></Image>
-            <Text>TitleOfCard</Text>
-            <Text>Price</Text>
-            <Text>Location</Text>
-            <Text>Info</Text>
-          </View>
+    <SafeAreaView style={{ backgroundColor: mainColors.white, flex: 1 }}>
+      <StatusBar
+        translucent={false}
+        backgroundColor={mainColors.white}
+        barStyle="dark-content"
+      />
+      <View style={styles.header}>
+        <Image
+          source={require("../../assets/man-avatar.png")}
+          style={styles.profileImage}
+        />
+        <View style={{ paddingLeft: 15 }}>
+          <Text style={{ color: mainColors.grey1 }}>Location</Text>
+          <Text
+            style={{
+              color: mainColors.grey1,
+              fontSize: 20,
+              fontWeight: "bold",
+            }}
+          >
+            Canada
+          </Text>
         </View>
       </View>
-    </>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          paddingHorizontal: 20,
+        }}
+      >
+        <View style={styles.searchInput}>
+          <Icon name="search" size={25} color={mainColors.grey1} />
+          <TextInput placeholder="Search address" />
+        </View>
+      </View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Text style={styles.title}>Top Hotels</Text>
+        <FlatList
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          data={hotels}
+          renderItem={({ item }) => (
+            <Card hotel={item} navigation={navigation} />
+          )}
+        />
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  appContainer: {
-    backgroundColor: "white",
-    alignItems: "center",
-    marginVertical: 25,
-  },
-
-  // top
-  infoContainer: {
-    width: "90%",
+  header: {
+    paddingVertical: 20,
     flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginVertical: 10,
+    paddingHorizontal: 20,
   },
-  shortProfilContainer: {
-    flexDirection: "row",
+  profileImage: {
+    height: 50,
+    width: 50,
+    borderRadius: 25,
   },
-  profilePicture: {
-    width: 35,
-    height: 35,
-    borderRadius: 50,
-    borderColor: "black",
-    borderWidth: 2,
-  },
-  welcomeContainer: {
-    padding: 1,
-    height: 35,
-    marginLeft: 4,
-  },
-  welcomeWord: {
-    fontSize: 10,
-    color: "#9D9D9D",
-    fontWeight: "bold",
-  },
-  userName: {
-    fontWeight: "bold",
-  },
-  bellIcon: {
-    backgroundColor: "#DDD",
-    padding: 4,
-
-    borderRadius: 50,
-    justifyContent: "center",
-  },
-
-  //search bar
-  searchContainer: {
-    flexDirection: "row",
-    width: "85%",
-    justifyContent: "space-between",
-    backgroundColor: "#DDD",
-    padding: 10,
-    borderRadius: 40,
-    marginVertical: 10,
-  },
-  textInput: {
-    borderRightWidth: 1,
+  searchInput: {
     flex: 1,
-    marginHorizontal: 20,
-  },
-
-  //first-section
-  SectionContainer: {
-    marginVertical: 15,
-    backgroundColor: "#DDD",
-    borderRadius: 20,
-    width: "100%",
-    padding: 10,
-  },
-  SectionTitleContainer: {
+    height: 50,
+    backgroundColor: mainColors.light2,
     flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 10,
+    paddingHorizontal: 20,
   },
-  firstSectionTitle: {
+  title: {
     fontSize: 18,
     fontWeight: "bold",
-  },
-  card: {
-    borderWidth: 2,
-    borderColor: "black",
-    padding: 5,
+    paddingHorizontal: 20,
   },
 });
 
