@@ -9,6 +9,7 @@ const mainColors = {
   light1: "#f9f9f9",
   light2: "#f1f4ff",
   light3: "#626262",
+  light4: "#c9c6c5",
   grey1: "#908e8c",
   grey2: "#626262",
   orange: "#f5a623",

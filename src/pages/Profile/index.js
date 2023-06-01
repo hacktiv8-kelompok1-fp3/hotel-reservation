@@ -1,222 +1,100 @@
 import React from 'react';
-import { View, Image, Text, FlatList, StyleSheet } from 'react-native';
-import { Rating } from 'react-native-elements';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import mainColors from '../../utils/colors';
+import List from '../../components/List';
 
-const hotels = [
-  {
-    id: 1,
-    name: 'Hotel Garden',
-    location: 'Surabaya, Indonesia',
-    image: require('../../assets/hotel1.jpg'),
-  },
-  {
-    id: 2,
-    name: 'Hotel Dreams',
-    location: 'Jakarta, Indonesia',
-    image: require('../../assets/hotel2.jpg'),
-  },
-  {
-    id: 3,
-    name: 'Hotel Flower',
-    location: 'Jakarta, Indonesia',
-    image: require('../../assets/hotel3.jpg'),
-  },
-];
-
-const Profile = () => {
-  const renderItem = ({ item }) => (
-    <View style={styles.card}>
-      <View style={styles.hotel}>
-        <Image source={item.image} style={styles.hotelImg} />
-      </View>
-      <View style={styles.hotelInfo}>
-        <Text style={styles.hotelName}>{item.name}</Text>
-        <Text style={styles.hotelLoc}>{item.location}</Text>
-        <Rating imageSize={15} readonly style={styles.hotelRate} />
-      </View>
-      <View style={styles.hotelInfo2}>
-        <Text style={styles.hotelPrice}>$ 400</Text>
-        <Text style={styles.hotelPrice2}>/night</Text>
-      </View>
-    </View>
-  );
-
+const ProfileInfo = () => {
   return (
-    <View style={styles.container}>
-      <View style={styles.containerContent}>
-        <View style={styles.header}>
-          <Image
-            style={styles.avatar}
-            source={{
-              uri: 'https://pub-static.fotor.com/assets/projects/pages/d5bdd0513a0740a8a38752dbc32586d0/fotor-03d1a91a0cec4542927f53c87e0599f6.jpg',
-            }}
-          />
-          <View style={styles.info}>
-            <Text style={styles.name}>Gordon Norman</Text>
-            <Text style={styles.email}>gordonnorman@gmail.com</Text>
-          </View>
-        </View>
-
-        <View style={styles.line} />
-
-        <View style={styles.stats}>
-          <View style={styles.stat}>
-            <Text style={styles.statLabel}>Bookings</Text>
-            <Text style={styles.statValue}>1,234</Text>
-          </View>
-          <View style={styles.stat}>
-            <Text style={styles.statLabel}>Reviews</Text>
-            <Text style={styles.statValue}>123</Text>
-          </View>
-          <View style={styles.stat}>
-            <Text style={styles.statLabel}>Favorites</Text>
-            <Text style={styles.statValue}>456</Text>
-          </View>
-        </View>
-        <View style={styles.line} />
+    <View style={styles.profileContainer}>
+      <View style={styles.avatarContainer}>
+        <Image
+          source={{
+            uri:
+              'https://pub-static.fotor.com/assets/projects/pages/d5bdd0513a0740a8a38752dbc32586d0/300w/fotor-03d1a91a0cec4542927f53c87e0599f6.jpg',
+          }}
+          style={styles.avatar}
+        />
       </View>
-      
-
-      <FlatList
-        data={hotels}
-        renderItem={renderItem}
-        keyExtractor={item => item.id.toString()}
-        contentContainerStyle={styles.flatListContent}
-      />
+      <View style={{ height: 10 }}></View>
+      <Text style={styles.name}>Gordon Norman</Text>
+      <Text style={styles.email}>gordonnorman@gmail.com</Text>
     </View>
   );
 };
 
-const styles = StyleSheet.create( {
-  container: {
-    flex: 1,
-    // backgroundColor: mainColors.light2,
-  },
-  containerContent: {
-    borderBottomColor: mainColors.dark,
-    backgroundColor: mainColors.white,
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    marginTop: 50,
-    marginBottom: 15,
-    paddingVertical: 20,
-    width: 380,
-    // borderRadius: 20,
-    // elevation: 5,
-  },
-  header: {
-    marginVertical: 20,
-    marginTop: 'auto',
-    flexDirection: 'row',
+const Profile = () => {
+  return (
+    <ScrollView style={styles.container}>
+      <View style={styles.header}>
+        {/* <TouchableOpacity style={styles.backButton}>
+          <Image source={require('../../assets/icons/arrow-back-8.png')} size={24} color="black" style={styles.backIcon} />
+        </TouchableOpacity> */}
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>Profile</Text>
+        </View>
+      </View>
+      <ProfileInfo />
+      <View style={{ height: 20 }}></View>
+      <List title="Edit Profile" icon="profile" />
+      <List title="Language" icon="language" />
+    </ScrollView>
+  );
+};
+
+const styles = StyleSheet.create({
+  profileContainer: {
+    justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 10,
+    marginTop: 10,
+  },
+  avatarContainer: {
+    borderRadius: 60,
+    borderWidth: 2,
+    borderColor: mainColors.light4, 
+    
+    padding: 8, 
   },
   avatar: {
-    width: 100,
-    height: 100,
-    borderRadius: 10,
-    marginLeft: 10,
-  },
-  info: {
-    marginLeft: 'auto',
-    marginRight: 'auto',
+    width: 90,
+    height: 90,
+    borderRadius: 60,
   },
   name: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginLeft: 'auto',
-    marginRight: 'auto',
   },
   email: {
+    fontSize: 18,
     color: mainColors.grey2,
-    fontSize: 12,
-    marginLeft: 'auto',
-    marginRight: 'auto',
   },
-  stats: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingVertical: 20,
-  },
-  stat: {
+  container: {
     flex: 1,
-    alignItems: 'center',
   },
-  statLabel: {
-    color: mainColors.grey2,
-    fontSize: 14,
-  },
-  statValue: {
-    fontSize: 18,
-  },
-
-  line: {
-    backgroundColor: mainColors.light3,
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    opacity: .5,
-    width: 340,
-    height: 1,
-  },
-
-  card: {
+  header: {
     flexDirection: 'row',
-    backgroundColor: mainColors.white,
-    paddingHorizontal: 10,
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    marginBottom: 15,
-    paddingVertical: 20,
-    width: 380,
-    borderRadius: 20,
-    elevation: 5,
     alignItems: 'center',
+    paddingVertical: 16,
+    paddingHorizontal: 16,
   },
-
-  hotelImg: {
-    width: 100,
-    height: 100,
-    borderRadius: 10,
-    marginLeft: 10,
+  backButton: {
+    padding: 8,
   },
-
-  hotelInfo: {
-    marginLeft: 20,
-    marginRight: 20,
-    marginHorizontal: 'auto',
+  backIcon: {
+    width: 24,
+    height: 24,
   },
-
-  hotelName:{
-    fontWeight: 'bold',
-    fontSize: 16,
-  },
-
-  hotelLoc: {
-    fontSize: 14,
-    paddingVertical: 5,
-    color: mainColors.grey2,
-  },
-
-  hotelInfo2: {
-    marginHorizontal: 'auto',
-    marginLeft: 'auto',
-    marginRight: 'auto',
+  titleContainer: {
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 10,
   },
-  hotelPrice: {
-    fontSize: 18,
+  title: {
+    fontSize: 20,
     fontWeight: 'bold',
-    color: mainColors.secondary2,
+    textAlign: 'center',
   },
-  hotelPrice2: {
-    fontSize: 14,
-    color: mainColors.grey2,
-  },
-  hotelRate: {
-    marginLeft: -40,
-  }
 });
 
 export default Profile;
