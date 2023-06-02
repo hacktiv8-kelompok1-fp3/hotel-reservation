@@ -44,9 +44,19 @@ const sliceBookingData = createSlice({
         state.room++;
       }
     },
+    clearBooking: (state) => {
+      state.detailhotel = {};
+      state.checkin = "";
+      state.checkout = "";
+      state.adults = 0;
+      state.children = 0;
+      state.room = 0;
+      state.numDays = null;
+      state.totalBooking = null;
+    },
   },
 });
 
-export const { addDetailHotel, addBookingDate, handleAdd } =
+export const { addDetailHotel, addBookingDate, handleAdd, clearBooking } =
   sliceBookingData.actions;
 export default sliceBookingData.reducer;

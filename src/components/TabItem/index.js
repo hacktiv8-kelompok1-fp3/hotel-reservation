@@ -8,30 +8,42 @@ const TabItem = ({ title, active, onPress, onLongPress }) => {
   function Icon() {
     if (title === "Home") {
       return active ? (
-        <Ionicons name="home" size={22} />
+        <Ionicons name="home" color={mainColors.primary2} size={22} />
       ) : (
-        <Ionicons name="home-outline" size={22} />
+        <Ionicons name="home-outline" color={mainColors.grey1} size={22} />
       );
     }
     if (title === "Favorites") {
       return active ? (
-        <Ionicons name="bookmarks" size={22} />
+        <Ionicons name="bookmarks" color={mainColors.primary2} size={22} />
       ) : (
-        <Ionicons name="bookmarks-outline" size={22} />
+        <Ionicons name="bookmarks-outline" color={mainColors.grey1} size={22} />
       );
     }
     if (title === "My Orders") {
       return active ? (
-        <MaterialIcons name="ticket-confirmation" size={22} />
+        <MaterialIcons
+          name="ticket-confirmation"
+          color={mainColors.primary2}
+          size={22}
+        />
       ) : (
-        <MaterialIcons name="ticket-confirmation-outline" size={22} />
+        <MaterialIcons
+          name="ticket-confirmation-outline"
+          color={mainColors.grey1}
+          size={22}
+        />
       );
     }
     if (title === "Profile") {
       return active ? (
-        <MaterialIcons name="account" size={22} />
+        <MaterialIcons name="account" color={mainColors.primary2} size={22} />
       ) : (
-        <MaterialIcons name="account-outline" size={22} />
+        <MaterialIcons
+          name="account-outline"
+          color={mainColors.grey1}
+          size={22}
+        />
       );
     }
   }
@@ -53,7 +65,7 @@ const styles = StyleSheet.create({
   },
   text: (active) => ({
     fontSize: 10,
-    color: active ? mainColors.dark : mainColors.grey,
+    color: active ? mainColors.primary2 : mainColors.grey1,
     fontWeight: "600",
     marginTop: 4,
   }),

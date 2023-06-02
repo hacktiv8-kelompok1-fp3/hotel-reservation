@@ -15,7 +15,7 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 const { width } = Dimensions.get("screen");
 
 const Card = ({ hotel, navigation }) => {
-  console.log("hotels", hotels);
+  // console.log("hotels", hotels);
   return (
     <Pressable onPress={() => navigation.navigate("DetailHotel", hotel)}>
       <View style={styles.card}>
@@ -40,10 +40,10 @@ const Card = ({ hotel, navigation }) => {
 const styles = StyleSheet.create({
   card: {
     height: 230,
-    backgroundColor: mainColors.light1,
+    backgroundColor: mainColors.white,
     elevation: 10,
     width: width / 2.1,
-    marginRight: 20,
+    marginLeft: 20,
     padding: 10,
     marginVertical: 20,
     borderRadius: 10,

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   ImageBackground,
   Pressable,
@@ -16,9 +16,11 @@ import HeaderBooking from "../../components/HeaderBooking";
 import hotel from "../../const/hotels";
 import {
   addBookingDate,
+  clearBooking,
   handleAdd,
 } from "../../redux/reducer/slice-bookingData";
 import mainColors from "../../utils/colors";
+import { addHistoryCheckout } from "../../redux/reducer/slice-historyCheckout";
 
 const Booking = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -33,7 +35,6 @@ const Booking = ({ navigation }) => {
   } = useSelector((state) => state.bookingData);
 
   const onConfirmRange = (date) => {
-    console.log("date", date);
     dispatch(
       addBookingDate({
         startDate: date.startDate,
@@ -46,6 +47,30 @@ const Booking = ({ navigation }) => {
     setStartDate("");
     setEndDate("");
   };
+
+  function generateIdRandom(length) {
+    let result = "";
+    const number = "0123456789";
+    const lengthCharacter = number.length;
+    for (let i = 0; i < length; i++) {
+      result += number.charAt(Math.floor(Math.random() * lengthCharacter));
+    }
+    return result;
+  }
+  const handleBooking = useCallback(() => {
+    const payload = {
+      id: generateIdRandom(11),
+      hotel: detailhotel,
+      checkin,
+      checkout,
+      adults,
+      children,
+      totalBooking,
+    };
+    dispatch(addHistoryCheckout(payload));
+    navigation.navigate("My Orders");
+    dispatch(clearBooking());
+  }, [detailhotel, checkin, checkout, adults, children, totalBooking]);
 
   return (
     <ImageBackground
@@ -110,14 +135,16 @@ const Booking = ({ navigation }) => {
                 Total Price
               </Text>
             </View>
-            <TouchableOpacity
-              style={styles.bookNowBtn}
-              onPress={() => navigation.navigate("Home")}
-            >
-              <Text style={{ color: mainColors.white, fontWeight: "bold" }}>
-                Book Now
-              </Text>
-            </TouchableOpacity>
+            {room > 0 && adults > 0 && (
+              <TouchableOpacity
+                style={styles.bookNowBtn}
+                onPress={handleBooking}
+              >
+                <Text style={{ color: mainColors.white, fontWeight: "bold" }}>
+                  Book Now
+                </Text>
+              </TouchableOpacity>
+            )}
           </View>
         </ScrollView>
       </View>
