@@ -1,14 +1,190 @@
-import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import {
+  Image,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
-const Favorites = () => {
+import Icon from "react-native-vector-icons/MaterialIcons";
+
+import { useDispatch, useSelector } from "react-redux";
+import BookButton from "../../components/Button";
+import { removeFavorites } from "../../redux/reducer/slice-favorites";
+import mainColors from "../../utils/colors";
+
+export default function WishlistScreen() {
+  const dispatch = useDispatch();
+  const { favorites } = useSelector((state) => state.favorite);
   return (
-    <View>
-      <Text>Page Favorites</Text>
-    </View>
+    <>
+      <SafeAreaView style={{ flex: 1 }}>
+        <StatusBar
+          translucent={false}
+          backgroundColor={mainColors.white}
+          barStyle="dark-content"
+        />
+        <View style={styles.header}>
+          <Text style={styles.title}>Wishlist</Text>
+        </View>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {favorites?.map((item) => {
+            return (
+              <View style={styles.listContainer}>
+                <View style={styles.cardContainer}>
+                  <Image
+                    source={{
+                      uri: "https://source.unsplash.com/hotel" || state.image,
+                    }}
+                    style={styles.imageStyle}
+                  />
+                  <View style={styles.cardInfoContainer}>
+                    <Text style={styles.cardCategory}>
+                      {"HOTEL" || state.category}
+                    </Text>
+                    <View style={styles.titleLocationContainer}>
+                      <Text style={styles.cardTitle}>
+                        {item?.name || state.title}
+                      </Text>
+                      <View style={styles.locationContainer}>
+                        <Icon
+                          name="location-on"
+                          size={15}
+                          color={mainColors.grey1}
+                        />
+                        <Text style={styles.locationTitle}>
+                          {item?.location || state.location}
+                        </Text>
+                      </View>
+                    </View>
+                    <Text style={styles.price}>
+                      {item?.price || state.price}
+                    </Text>
+                  </View>
+                  <View style={styles.actionContainer}>
+                    <Icon
+                      name="favorite"
+                      color={mainColors.pink}
+                      size={28}
+                      onPress={() => dispatch(removeFavorites(item?.id))}
+                    />
+                    <BookButton>BOOK</BookButton>
+                  </View>
+                </View>
+              </View>
+            );
+          })}
+        </ScrollView>
+      </SafeAreaView>
+    </>
   );
-};
+}
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  wishlistContainer: {
+    backgroundColor: "white",
+    alignItems: "center",
+    marginTop: 25,
+  },
+  header: {
+    marginVertical: 20,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 20,
+  },
+  title: {
+    fontSize: 20,
+    color: mainColors.primary2,
+    fontWeight: "bold",
+  },
+  topContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "100%",
+    shadowColor: "black",
+    height: "6%",
+    paddingHorizontal: 15,
+    marginBottom: 5,
+    marginTop: 1,
+  },
+  wishlistTitle: {
+    flex: 1,
+    fontWeight: "bold",
+    fontSize: 20,
+    paddingHorizontal: 20,
+    textAlign: "center",
+    letterSpacing: 4,
+  },
+  // listCard
+  listContainer: {
+    // width: "100%",
+    // backgroundColor: "#D2D2D2",
+    // height: "100%",
+    // alignItems: "center",
+    paddingHorizontal: 20,
+  },
+  //Card
+  cardContainer: {
+    backgroundColor: "white",
+    flexDirection: "row",
+    height: 120,
+    marginTop: 10,
+    borderRadius: 15,
+    padding: 5,
+  },
+  imageStyle: {
+    width: "26%",
+    height: "100%",
+    borderRadius: 10,
+  },
+  cardInfoContainer: {
+    paddingHorizontal: 22,
+    alignItems: "flex-start",
+  },
+  cardCategory: {
+    color: mainColors.primary2,
+    fontWeight: "bold",
+    fontSize: 12,
+    letterSpacing: 4,
+  },
+  titleLocationContainer: {
+    paddingTop: 6,
+  },
+  cardTitle: {
+    fontWeight: "bold",
+    fontSize: 15,
+    color: mainColors.primary3,
+  },
+  locationContainer: {
+    flexDirection: "row",
+    paddingVertical: 5,
+  },
 
-export default Favorites;
+  locationTitle: {
+    flexDirection: "row",
+    fontSize: 10,
+    paddingLeft: 5,
+    color: mainColors.grey1,
+  },
+
+  price: {
+    color: mainColors.primary2,
+    fontWeight: "bold",
+    // paddingLeft: 5,
+    marginTop: 3,
+  },
+
+  // button-style
+  actionContainer: {
+    padding: 10,
+    alignItems: "flex-end",
+    justifyContent: "space-between",
+  },
+
+  contentContainer: {
+    paddingVertical: 20,
+  },
+});

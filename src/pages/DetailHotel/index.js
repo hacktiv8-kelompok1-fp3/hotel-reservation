@@ -1,19 +1,17 @@
 import React from "react";
 import {
-  View,
-  StyleSheet,
-  Text,
+  ImageBackground,
   ScrollView,
   StatusBar,
-  ImageBackground,
+  StyleSheet,
+  Text,
   TouchableOpacity,
+  View,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import mainColors from "../../utils/colors";
-// import hotel from "../../const/hotels";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addDetailHotel } from "../../redux/reducer/slice-bookingData";
-import { useState } from "react";
 import {
   addFavorites,
   removeFavorites,
@@ -21,28 +19,19 @@ import {
 
 const DetailHotel = ({ navigation, route }) => {
   const hotel = route.params;
-  const [isFavorite, setIsFavorite] = useState(false);
+  const { favorites } = useSelector((state) => state.favorite);
+  const isFavorite = favorites.find((item) => item.id === hotel.id);
   const dispatch = useDispatch();
-  // const hotels = {
-  //   id: hotel.id,
-  //   name: hotel.name,
-  //   location: hotel.location,
-  //   price: hotel.price,
-  //   image: hotel.price,
-  //   details: hotel.details,
-  // };
   const handleClickBook = () => {
     dispatch(addDetailHotel(hotel));
     navigation.navigate("Booking");
   };
-  const handleClickFavorites = () => {
-    if (isFavorite) {
-      dispatch(removeFavorites(hotel?.id));
-      setIsFavorite(false);
-    } else {
-      dispatch(addFavorites(hotel));
-      setIsFavorite(true);
-    }
+  const handleFavoriteClick = () => {
+    dispatch(addFavorites(hotel));
+  };
+
+  const handleUnFavoriteClick = () => {
+    dispatch(removeFavorites(hotel?.id));
   };
   return (
     <ScrollView
@@ -69,14 +58,14 @@ const DetailHotel = ({ navigation, route }) => {
               name="favorite"
               color={mainColors.pink}
               size={28}
-              onPress={handleClickFavorites}
+              onPress={handleUnFavoriteClick}
             />
           ) : (
             <Icon
               name="favorite-outline"
               color={mainColors.white}
               size={28}
-              onPress={handleClickFavorites}
+              onPress={handleFavoriteClick}
             />
           )}
         </View>

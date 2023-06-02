@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
 
-export default function ViewAllButton({ children }) {
+export default function Button({ children }) {
   return (
     <Pressable onPress={() => {}}>
       <View>
@@ -12,7 +12,11 @@ export default function ViewAllButton({ children }) {
 
 const styles = StyleSheet.create({
   container: {
-    color: "#B36A34",
+    backgroundColor: "#595CEB",
+    paddingVertical: 8,
+    paddingHorizontal: 15,
+    borderRadius: 10,
+    color: "white",
     fontWeight: "bold",
   },
 });

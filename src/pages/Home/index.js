@@ -6,7 +6,6 @@ import {
   Octicons,
 } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
-import ViewAllButton from "../../components/ViewAllButton.js";
 import {
   View,
   StyleSheet,

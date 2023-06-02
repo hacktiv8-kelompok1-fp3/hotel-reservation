@@ -9,8 +9,21 @@ import {
 } from "react-native";
 import mainColors from "../../utils/colors";
 import TextInputAuth from "../../components/TextInputAuth";
+import { useState } from "react";
 
 const Login = () => {
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+  const handleChangeInput = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = () => {
+    console.log("data", form);
+  };
   return (
     <SafeAreaView style={{ backgroundColor: mainColors.white, flex: 1 }}>
       <View style={{ padding: 10 * 2 }}>
@@ -28,8 +41,24 @@ const Login = () => {
           <Text style={styles.title2}>Welcome back you've been missed!</Text>
         </View>
         <View style={{ marginVertical: 13 }}>
-          <TextInputAuth placeholder="Email" />
-          <TextInputAuth placeholder="Password" />
+          <TextInputAuth
+            placeholder="Email"
+            value={form.name}
+            name="name"
+            type="text"
+          />
+          <TextInputAuth
+            placeholder="Email"
+            value={form.email}
+            name="email"
+            type="email"
+          />
+          <TextInputAuth
+            placeholder="Password"
+            value={form.password}
+            name="password"
+            type="password"
+          />
         </View>
         <TouchableOpacity style={styles.btnLogin}>
           <Text style={styles.textLoginBtn}>Sign in</Text>
