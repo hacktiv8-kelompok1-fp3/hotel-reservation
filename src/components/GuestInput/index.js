@@ -1,8 +1,17 @@
 import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, Pressable } from "react-native";
 import mainColors from "../../utils/colors";
 import IconQuantity from "react-native-vector-icons/MaterialCommunityIcons";
-const GuestInput = ({ title, description, count, onPress }) => {
+import { useDispatch, useSelector } from "react-redux";
+import { handleAdd, handleDelete } from "../../redux/reducer/slice-bookingData";
+const GuestInput = ({ title, description, count, type }) => {
+  const dispatch = useDispatch();
+  const handleButtonMin = () => {
+    dispatch(handleDelete({ type }));
+  };
+  const handleButtonPlus = () => {
+    dispatch(handleAdd({ type }));
+  };
   return (
     <View
       style={{
@@ -20,13 +29,19 @@ const GuestInput = ({ title, description, count, onPress }) => {
         <Text style={styles.description}>{description}</Text>
       </View>
       <View style={styles.quantityContainer}>
-        <View style={styles.quantityBtn}>
-          <IconQuantity name="minus" size={20} />
-        </View>
+        {count <= 0 ? (
+          <Pressable style={styles.quantityBtn} disabled>
+            <IconQuantity name="minus" size={20} color={mainColors.white} />
+          </Pressable>
+        ) : (
+          <Pressable style={styles.quantityBtn} onPress={handleButtonMin}>
+            <IconQuantity name="minus" size={20} color={mainColors.white} />
+          </Pressable>
+        )}
         <Text style={{ fontWeight: "bold" }}>{count}</Text>
-        <View style={styles.quantityBtn}>
-          <IconQuantity name="plus" size={20} onPress={onPress} />
-        </View>
+        <Pressable style={styles.quantityBtn} onPress={handleButtonPlus}>
+          <IconQuantity name="plus" size={20} color={mainColors.white} />
+        </Pressable>
       </View>
     </View>
   );
@@ -51,12 +66,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   quantityBtn: {
-    height: 25,
-    width: 25,
+    height: 30,
+    width: 30,
     borderRadius: 7,
     marginHorizontal: 5,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: mainColors.primary3,
   },
 });
 

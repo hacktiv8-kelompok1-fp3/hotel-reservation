@@ -27,7 +27,7 @@ const MyOrder = () => {
         <Text style={styles.title}>My Orders</Text>
         <Icon name="newspaper-outline" size={20} color={mainColors.primary2} />
       </View>
-      <ScrollView showsHorizontalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.container}>
           {history?.map((item) => (
             <View style={styles.card}>

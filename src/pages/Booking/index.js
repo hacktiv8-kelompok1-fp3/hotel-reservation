@@ -1,7 +1,6 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback } from "react";
 import {
   ImageBackground,
-  Pressable,
   ScrollView,
   StatusBar,
   StyleSheet,
@@ -13,14 +12,13 @@ import DatePicker from "react-native-neat-date-picker";
 import { useDispatch, useSelector } from "react-redux";
 import GuestInput from "../../components/GuestInput";
 import HeaderBooking from "../../components/HeaderBooking";
-import hotel from "../../const/hotels";
 import {
   addBookingDate,
   clearBooking,
   handleAdd,
 } from "../../redux/reducer/slice-bookingData";
-import mainColors from "../../utils/colors";
 import { addHistoryCheckout } from "../../redux/reducer/slice-historyCheckout";
+import mainColors from "../../utils/colors";
 
 const Booking = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -113,19 +111,15 @@ const Booking = ({ navigation }) => {
             title="Adults"
             description="Over 17 Years"
             count={adults}
-            onPress={() => dispatch(handleAdd({ type: "adults" }))}
+            type="adults"
           />
           <GuestInput
             title="Children"
             description="Under 17 Years"
             count={children}
-            onPress={() => dispatch(handleAdd({ type: "children" }))}
+            type="children"
           />
-          <GuestInput
-            title="Room"
-            count={room}
-            onPress={() => dispatch(handleAdd({ type: "room" }))}
-          />
+          <GuestInput title="Room" count={room} type="room" />
           <View style={styles.footer}>
             <View>
               <Text style={{ color: mainColors.primary3, fontWeight: "bold" }}>

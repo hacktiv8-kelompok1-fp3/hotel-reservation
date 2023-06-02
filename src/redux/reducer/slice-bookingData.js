@@ -44,6 +44,17 @@ const sliceBookingData = createSlice({
         state.room++;
       }
     },
+    handleDelete: (state, action) => {
+      if (action.payload.type === "adults") {
+        state.adults--;
+      }
+      if (action.payload.type === "children") {
+        state.children--;
+      }
+      if (action.payload.type === "room") {
+        state.room--;
+      }
+    },
     clearBooking: (state) => {
       state.detailhotel = {};
       state.checkin = "";
@@ -57,6 +68,11 @@ const sliceBookingData = createSlice({
   },
 });
 
-export const { addDetailHotel, addBookingDate, handleAdd, clearBooking } =
-  sliceBookingData.actions;
+export const {
+  addDetailHotel,
+  addBookingDate,
+  handleAdd,
+  handleDelete,
+  clearBooking,
+} = sliceBookingData.actions;
 export default sliceBookingData.reducer;
