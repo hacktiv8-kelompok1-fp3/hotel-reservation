@@ -16,7 +16,7 @@ const sliceBookingData = createSlice({
   reducers: {
     addDetailHotel: (state, action) => {
       state.detailhotel = action.payload;
-      state.totalBooking = action.payload.price;
+      state.totalBooking = action.payload.number_of_rooms;
     },
     addBookingDate: (state, action) => {
       const startDate = action.payload.startDate;

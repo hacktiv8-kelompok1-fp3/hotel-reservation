@@ -3,16 +3,17 @@ import { createSlice } from "@reduxjs/toolkit";
 export const sliceLoginUser = createSlice({
   name: "authorization",
   initialState: {
-    name: "",
-    email: "",
-    password: "",
+    token: "",
   },
   reducers: {
     addUsers: (state, action) => {
       const item = action.payload;
-      state.name = item.name;
-      state.email = item.email;
-      state.password = btoa(item.password);
+      state.token = item;
+      console.log(item);
+      // if (item.email !== "") {
+      //   const parse = JSON.stringify(item);
+      //   state.token = btoa(parse);
+      // }
     },
   },
 });

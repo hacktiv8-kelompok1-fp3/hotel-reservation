@@ -74,7 +74,7 @@ const Booking = ({ navigation }) => {
     <ImageBackground
       style={styles.conatiner}
       imageStyle={styles.image}
-      source={detailhotel.image}
+      source={require("../../assets/hotel4.jpg")}
     >
       <StatusBar hidden />
       <HeaderBooking

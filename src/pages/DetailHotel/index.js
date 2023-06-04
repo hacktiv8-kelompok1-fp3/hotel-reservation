@@ -31,7 +31,7 @@ const DetailHotel = ({ navigation, route }) => {
   };
 
   const handleUnFavoriteClick = () => {
-    dispatch(removeFavorites(hotel?.id));
+    dispatch(removeFavorites(hotel?.hotel_id));
   };
   return (
     <ScrollView
@@ -45,7 +45,10 @@ const DetailHotel = ({ navigation, route }) => {
         translucent
         backgroundColor="rgba(0,0,0,0)"
       />
-      <ImageBackground style={styles.headerImage} source={hotel.image}>
+      <ImageBackground
+        style={styles.headerImage}
+        source={require("../../assets/hotel4.jpg")}
+      >
         <View style={styles.header}>
           <Icon
             name="arrow-back-ios"
@@ -76,7 +79,9 @@ const DetailHotel = ({ navigation, route }) => {
         </View>
         <View style={styles.containerDetail}>
           <Text style={styles.title}>{hotel.name}</Text>
-          <Text style={styles.location}>{hotel.location}</Text>
+          <Text style={styles.location}>
+            {hotel.city}, {hotel.address}
+          </Text>
           <View style={styles.containerReview}>
             <View style={{ flexDirection: "row" }}>
               <Icon name="star" size={20} color={mainColors.orange} />
@@ -86,12 +91,12 @@ const DetailHotel = ({ navigation, route }) => {
             </View>
             <Text style={styles.reviews}>365reviews</Text>
           </View>
-          <Text style={styles.description}>{hotel.details}</Text>
+          <Text style={styles.description}>{hotel.hotel_description}</Text>
         </View>
         <View style={styles.containerBooking}>
           <View style={styles.booking}>
             <Text style={{ fontSize: 18, color: mainColors.white }}>
-              ${hotel.price}
+              ${hotel.number_of_rooms}
             </Text>
             <Text
               style={{ fontSize: 12, color: mainColors.white, marginLeft: 5 }}

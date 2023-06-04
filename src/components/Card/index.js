@@ -15,22 +15,24 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 const { width } = Dimensions.get("screen");
 
 const Card = ({ hotel, navigation }) => {
-  // console.log("hotels", hotels);
+  console.log("hotels", hotel);
   return (
     <Pressable onPress={() => navigation.navigate("DetailHotel", hotel)}>
       <View style={styles.card}>
         <Image
-          source={hotel.image}
+          source={require("../../assets/hotel4.jpg")}
           style={{ height: 120, width: "100%", borderRadius: 10 }}
         />
         <Text style={styles.cardName}>{hotel.name}</Text>
         <View style={styles.cardContent}>
-          <Text style={styles.cardPrice}>${hotel.price}</Text>
+          <Text style={styles.cardPrice}>${hotel.number_of_rooms}</Text>
           <Text style={styles.cardNight}>/night</Text>
         </View>
         <View style={styles.cardContentLocation}>
           <Icon name="location-on" size={18} color={mainColors.grey1} />
-          <Text style={styles.location}>Bitung, Sulawesi Utara</Text>
+          <Text style={styles.location}>
+            {hotel.country}, {hotel.city}
+          </Text>
         </View>
       </View>
     </Pressable>

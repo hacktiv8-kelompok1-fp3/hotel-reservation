@@ -18,7 +18,10 @@ const CardBig = ({ hotel, navigation }) => {
       onPress={() => navigation.navigate("DetailHotel", hotel)}
     >
       <View style={styles.card}>
-        <Image source={hotel.image} style={styles.cardImage} />
+        <Image
+          source={require("../../assets/hotel4.jpg")}
+          style={styles.cardImage}
+        />
         <View style={{ marginTop: 10 }}>
           <View
             style={{
@@ -44,14 +47,16 @@ const CardBig = ({ hotel, navigation }) => {
                   color: mainColors.primary2,
                 }}
               >
-                ${hotel.price}
+                ${hotel.number_of_rooms}
               </Text>
               <Text style={styles.cardNight}>/night</Text>
             </View>
           </View>
           <View style={styles.cardContentLocation}>
             {/* <Icon name="location-on" size={18} color={mainColors.grey1} /> */}
-            <Text style={styles.location}>Bitung, Sulawesi Utara</Text>
+            <Text style={styles.location}>
+              {hotel.country}, {hotel.city}
+            </Text>
           </View>
           <View style={{ marginTop: 5, flexDirection: "row" }}>
             <View style={styles.facility}>

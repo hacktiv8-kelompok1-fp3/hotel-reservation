@@ -35,9 +35,7 @@ export default function WishlistScreen() {
               <View style={styles.listContainer}>
                 <View style={styles.cardContainer}>
                   <Image
-                    source={{
-                      uri: "https://source.unsplash.com/hotel" || state.image,
-                    }}
+                    source={require("../../assets/hotel4.jpg")}
                     style={styles.imageStyle}
                   />
                   <View style={styles.cardInfoContainer}>
@@ -55,20 +53,18 @@ export default function WishlistScreen() {
                           color={mainColors.grey1}
                         />
                         <Text style={styles.locationTitle}>
-                          {item?.location || state.location}
+                          {item?.country}, {item?.city}
                         </Text>
                       </View>
                     </View>
-                    <Text style={styles.price}>
-                      {item?.price || state.price}
-                    </Text>
+                    <Text style={styles.price}>${item?.number_of_rooms}</Text>
                   </View>
                   <View style={styles.actionContainer}>
                     <Icon
                       name="favorite"
                       color={mainColors.pink}
                       size={28}
-                      onPress={() => dispatch(removeFavorites(item?.id))}
+                      onPress={() => dispatch(removeFavorites(item?.hotel_id))}
                     />
                     <BookButton>BOOK</BookButton>
                   </View>

@@ -9,6 +9,8 @@ import MyOrder from "../pages/MyOrder";
 import Favorites from "../pages/Favorites";
 import Profile from "../pages/Profile";
 import Login from "../pages/Login";
+import SplashScreen from "../pages/SplashScreen";
+import OrderDetail from "../pages/OrderDetail";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -42,7 +44,17 @@ function MainApp() {
 
 export default function Router() {
   return (
-    <Stack.Navigator initialRouteName="Login">
+    <Stack.Navigator initialRouteName="OrderDetail">
+      <Stack.Screen
+        name="SplashScreen"
+        component={SplashScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen
         name="MainApp"
         component={MainApp}
@@ -59,8 +71,8 @@ export default function Router() {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="Login"
-        component={Login}
+        name="OrderDetail"
+        component={OrderDetail}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

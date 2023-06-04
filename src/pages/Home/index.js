@@ -1,32 +1,29 @@
-import React from "react";
-import {
-  Ionicons,
-  MaterialCommunityIcons,
-  AntDesign,
-  Octicons,
-} from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
+import React, { useEffect } from "react";
 import {
-  View,
-  StyleSheet,
-  Text,
+  FlatList,
   Image,
-  TextInput,
   SafeAreaView,
   ScrollView,
-  FlatList,
-  Dimensions,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
 } from "react-native";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import { useSelector } from "react-redux";
+import Card from "../../components/Card/index.js";
+import CardBig from "../../components/CardBig/index.js";
 import { useGetAllHotelsQuery } from "../../redux/reducer/slice-hotel";
 import mainColors from "../../utils/colors/index.js";
-import Icon from "react-native-vector-icons/MaterialIcons";
-import Card from "../../components/Card/index.js";
-import hotels from "../../const/hotels.js";
-import CardBig from "../../components/CardBig/index.js";
-const { width } = Dimensions.get("screen");
 const Home = ({ navigation }) => {
   const { data } = useGetAllHotelsQuery();
-  // console.log("data", data);
+  const { token } = useSelector((state) => state.authorization);
+  useEffect(() => {
+    if (!token) {
+      navigation.replace("Login");
+    }
+  }, [token]);
   return (
     <SafeAreaView style={{ backgroundColor: mainColors.white, flex: 1 }}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -71,10 +68,11 @@ const Home = ({ navigation }) => {
 
         <View style={{ paddingVertical: 30 }}>
           <Text style={styles.title}>Top Hotels</Text>
+
           <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
-            data={hotels}
+            data={data?.result.slice(0, 8)}
             renderItem={({ item }) => (
               <Card hotel={item} navigation={navigation} />
             )}
@@ -83,7 +81,7 @@ const Home = ({ navigation }) => {
           <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
-            data={hotels}
+            data={data?.result.slice(0, 8)}
             renderItem={({ item }) => (
               <CardBig hotel={item} navigation={navigation} />
             )}

@@ -1,28 +1,39 @@
-import React from "react";
+import React, { useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
-  View,
-  StyleSheet,
   SafeAreaView,
+  StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
+  View,
 } from "react-native";
-import mainColors from "../../utils/colors";
+import { useDispatch, useSelector } from "react-redux";
 import TextInputAuth from "../../components/TextInputAuth";
-import { useState } from "react";
+import { addUsers } from "../../redux/reducer/slice-login";
+import mainColors from "../../utils/colors";
+import { useForm } from "../../utils/useForm";
 
-const Login = () => {
-  const [form, setForm] = useState({
-    name: "",
+const Login = ({ navigation }) => {
+  const { token } = useSelector((state) => state.authorization);
+  useEffect(() => {
+    if (token) {
+      navigation.navigate("MainApp");
+    }
+  }, [token]);
+  const dispatch = useDispatch();
+  const [form, setForm] = useForm({
     email: "",
     password: "",
   });
-  const handleChangeInput = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
 
   const handleSubmit = () => {
-    console.log("data", form);
+    const payload = {
+      email: form.email,
+      password: form.password,
+    };
+    dispatch(addUsers(payload));
+    navigation.navigate("MainApp");
+    // await AsyncStorage.removeItem("root");
   };
   return (
     <SafeAreaView style={{ backgroundColor: mainColors.white, flex: 1 }}>
@@ -43,24 +54,19 @@ const Login = () => {
         <View style={{ marginVertical: 13 }}>
           <TextInputAuth
             placeholder="Email"
-            value={form.name}
-            name="name"
-            type="text"
-          />
-          <TextInputAuth
-            placeholder="Email"
             value={form.email}
-            name="email"
+            onChangeText={(value) => setForm("email", value)}
             type="email"
           />
           <TextInputAuth
             placeholder="Password"
             value={form.password}
-            name="password"
+            secureTextEntry
+            onChangeText={(value) => setForm("password", value)}
             type="password"
           />
         </View>
-        <TouchableOpacity style={styles.btnLogin}>
+        <TouchableOpacity style={styles.btnLogin} onPress={handleSubmit}>
           <Text style={styles.textLoginBtn}>Sign in</Text>
         </TouchableOpacity>
         <TouchableOpacity style={{ padding: 10 }}>

@@ -37,7 +37,10 @@ const MyOrder = () => {
                 {/* <br /> */}
               </View>
               <View style={styles.containerDesc}>
-                <Image style={styles.image} source={item?.hotel?.image} />
+                <Image
+                  style={styles.image}
+                  source={require("../../assets/hotel4.jpg")}
+                />
                 <View style={{ marginLeft: 20, justifyContent: "center" }}>
                   <Text style={styles.titleCard}>{item?.hotel?.name}</Text>
                   <Text style={styles.categoryCard}>SUPERIOR TWIN BED</Text>

@@ -8,7 +8,7 @@ const sliceFavorites = createSlice({
   reducers: {
     addFavorites: (state, action) => {
       const saveHotel = state.favorites.find(
-        (item) => item.id === action.payload.id
+        (item) => item.hotel_id === action.payload.hotel_id
       );
       if (!saveHotel) {
         state.favorites.push(action.payload);
@@ -16,7 +16,7 @@ const sliceFavorites = createSlice({
     },
     removeFavorites: (state, action) => {
       const removeHotel = state.favorites.filter(
-        (item) => item.id !== action.payload
+        (item) => item.hotel_id !== action.payload
       );
       state.favorites = removeHotel;
     },
