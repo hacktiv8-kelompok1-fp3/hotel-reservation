@@ -15,7 +15,7 @@ import BookButton from "../../components/Button";
 import { removeFavorites } from "../../redux/reducer/slice-favorites";
 import mainColors from "../../utils/colors";
 
-export default function WishlistScreen() {
+export default function WishlistScreen({ navigation }) {
   const dispatch = useDispatch();
   const { favorites } = useSelector((state) => state.favorite);
   return (
@@ -60,13 +60,19 @@ export default function WishlistScreen() {
                     <Text style={styles.price}>${item?.number_of_rooms}</Text>
                   </View>
                   <View style={styles.actionContainer}>
-                    <Icon
-                      name="favorite"
-                      color={mainColors.pink}
-                      size={28}
-                      onPress={() => dispatch(removeFavorites(item?.hotel_id))}
-                    />
-                    <BookButton>BOOK</BookButton>
+                    <View style={{ alignItems: "center" }}>
+                      <Icon
+                        name="favorite"
+                        color={mainColors.pink}
+                        size={28}
+                        onPress={() =>
+                          dispatch(removeFavorites(item?.hotel_id))
+                        }
+                      />
+                    </View>
+                    <BookButton navigation={navigation} data={item}>
+                      BOOK
+                    </BookButton>
                   </View>
                 </View>
               </View>
@@ -120,7 +126,7 @@ const styles = StyleSheet.create({
     // backgroundColor: "#D2D2D2",
     // height: "100%",
     // alignItems: "center",
-    paddingHorizontal: 20,
+    // paddingHorizontal: 20,
   },
   //Card
   cardContainer: {
@@ -137,7 +143,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   cardInfoContainer: {
-    paddingHorizontal: 22,
+    paddingLeft: 15,
     alignItems: "flex-start",
   },
   cardCategory: {
@@ -176,7 +182,7 @@ const styles = StyleSheet.create({
   // button-style
   actionContainer: {
     padding: 10,
-    alignItems: "flex-end",
+    // alignItems: "flex-end",
     justifyContent: "space-between",
   },
 

@@ -15,6 +15,7 @@ import HeaderBooking from "../../components/HeaderBooking";
 import {
   addBookingDate,
   clearBooking,
+  deleteDate,
   handleAdd,
 } from "../../redux/reducer/slice-bookingData";
 import { addHistoryCheckout } from "../../redux/reducer/slice-historyCheckout";
@@ -30,6 +31,7 @@ const Booking = ({ navigation }) => {
     children,
     room,
     totalBooking,
+    numDays,
   } = useSelector((state) => state.bookingData);
 
   const onConfirmRange = (date) => {
@@ -42,8 +44,7 @@ const Booking = ({ navigation }) => {
   };
 
   const onCancelRange = () => {
-    setStartDate("");
-    setEndDate("");
+    dispatch(deleteDate(detailhotel));
   };
 
   function generateIdRandom(length) {
@@ -59,23 +60,21 @@ const Booking = ({ navigation }) => {
     const payload = {
       id: generateIdRandom(11),
       hotel: detailhotel,
+      room,
       checkin,
       checkout,
       adults,
       children,
       totalBooking,
+      numDays,
     };
     dispatch(addHistoryCheckout(payload));
     navigation.navigate("My Orders");
     dispatch(clearBooking());
-  }, [detailhotel, checkin, checkout, adults, children, totalBooking]);
+  }, [detailhotel, checkin, checkout, adults, children, totalBooking, room]);
 
   return (
-    <ImageBackground
-      style={styles.conatiner}
-      imageStyle={styles.image}
-      source={require("../../assets/hotel4.jpg")}
-    >
+    <View style={styles.conatiner}>
       <StatusBar hidden />
       <HeaderBooking
         title={detailhotel?.name}
@@ -142,13 +141,14 @@ const Booking = ({ navigation }) => {
           </View>
         </ScrollView>
       </View>
-    </ImageBackground>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   conatiner: {
     flex: 1,
+    backgroundColor: mainColors.primary2,
   },
   image: {
     opacity: 0.6,

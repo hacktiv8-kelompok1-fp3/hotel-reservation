@@ -7,7 +7,7 @@ const HeaderBooking = ({ onPress, title, startDate, endDate }) => {
     <View style={styles.header}>
       <Icon
         name="arrow-back-ios"
-        color={mainColors.dark}
+        color={mainColors.white}
         size={28}
         onPress={onPress}
       />
@@ -32,16 +32,17 @@ const styles = StyleSheet.create({
   detailBooking: {
     flex: 1,
     alignItems: "center",
+    paddingRight: 20,
   },
   hotel: {
-    color: mainColors.dark,
+    color: mainColors.white,
     fontWeight: "bold",
     fontSize: 17,
   },
   date: {
-    color: mainColors.dark,
+    color: mainColors.white,
     fontWeight: "400",
-    fontSize: 15,
+    fontSize: 13,
     marginTop: 5,
   },
 });

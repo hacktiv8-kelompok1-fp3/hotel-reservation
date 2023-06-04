@@ -9,8 +9,10 @@ const Slide = ({ item }) => {
         source={item.image}
         style={{ height: "75%", width, resizeMode: "contain" }}
       />
-      <Text style={styles.title}>{item.title}</Text>
-      <Text style={styles.subtitle}>{item.subtitle}</Text>
+      <View>
+        <Text style={styles.title}>{item.title}</Text>
+        <Text style={styles.subtitle}>{item.subtitle}</Text>
+      </View>
     </View>
   );
 };
@@ -26,7 +28,7 @@ const styles = StyleSheet.create({
   subtitle: {
     color: mainColors.primary3,
     fontSize: 13,
-    marginTop: 10,
+    marginHorizontal: 10,
     maxWidth: "70%",
     textAlign: "center",
     lineHeight: 23,

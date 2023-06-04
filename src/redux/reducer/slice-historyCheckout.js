@@ -14,8 +14,15 @@ export const sliceHistory = createSlice({
         state.history.push(action.payload);
       }
     },
+    deleteHistoryCheckout: (state, action) => {
+      const removeHistory = state.history.filter(
+        (item) => item.hotel.hotel_id !== action.payload
+      );
+      state.history = removeHistory;
+    },
   },
 });
 
-export const { addHistoryCheckout } = sliceHistory.actions;
+export const { addHistoryCheckout, deleteHistoryCheckout } =
+  sliceHistory.actions;
 export default sliceHistory.reducer;

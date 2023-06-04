@@ -1,8 +1,9 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
+import mainColors from "../../utils/colors";
 
-export default function Button({ children }) {
+export default function Button({ children, navigation, data }) {
   return (
-    <Pressable onPress={() => {}}>
+    <Pressable onPress={() => navigation.navigate("Booking", data)}>
       <View>
         <Text style={styles.container}>{children}</Text>
       </View>
@@ -12,7 +13,7 @@ export default function Button({ children }) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#595CEB",
+    backgroundColor: mainColors.primary2,
     paddingVertical: 8,
     paddingHorizontal: 15,
     borderRadius: 10,

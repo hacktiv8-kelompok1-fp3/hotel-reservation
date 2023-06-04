@@ -8,13 +8,17 @@ import {
   Dimensions,
   Image,
   ScrollView,
+  Pressable,
 } from "react-native";
+
 import mainColors from "../../utils/colors";
 import Icon from "react-native-vector-icons/Ionicons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteHistoryCheckout } from "../../redux/reducer/slice-historyCheckout";
 const { width } = Dimensions.get("screen");
 
-const MyOrder = () => {
+const MyOrder = ({ navigation }) => {
+  const dispatch = useDispatch();
   const { history } = useSelector((state) => state.historycheckout);
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -33,7 +37,14 @@ const MyOrder = () => {
             <View style={styles.card}>
               <View style={styles.containerOrder}>
                 <Text style={styles.orderId}>ORDER ID : {item?.id}</Text>
-                <Icon name="trash" size={18} color={mainColors.primary3} />
+                <Icon
+                  name="trash"
+                  size={18}
+                  color={mainColors.primary3}
+                  onPress={() =>
+                    dispatch(deleteHistoryCheckout(item.hotel.hotel_id))
+                  }
+                />
                 {/* <br /> */}
               </View>
               <View style={styles.containerDesc}>
@@ -50,7 +61,8 @@ const MyOrder = () => {
                 <Text style={styles.priceDetails}>Price Details</Text>
                 <Text style={styles.priceCard}>${item?.totalBooking}</Text>
               </View>
-              <View
+              <Pressable
+                onPress={() => navigation.navigate("OrderDetail", item)}
                 style={{
                   borderRadius: 20,
                   backgroundColor: mainColors.primary3,
@@ -66,7 +78,7 @@ const MyOrder = () => {
                 >
                   See Voucher
                 </Text>
-              </View>
+              </Pressable>
             </View>
           ))}
         </View>

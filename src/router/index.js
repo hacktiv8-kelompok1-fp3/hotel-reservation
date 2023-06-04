@@ -44,7 +44,7 @@ function MainApp() {
 
 export default function Router() {
   return (
-    <Stack.Navigator initialRouteName="OrderDetail">
+    <Stack.Navigator>
       <Stack.Screen
         name="SplashScreen"
         component={SplashScreen}

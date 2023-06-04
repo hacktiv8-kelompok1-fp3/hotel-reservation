@@ -33,6 +33,11 @@ const sliceBookingData = createSlice({
         }
       }
     },
+    deleteDate: (state, action) => {
+      state.checkin = "";
+      state.checkout = "";
+      state.totalBooking = action.payload.number_of_rooms;
+    },
     handleAdd: (state, action) => {
       if (action.payload.type === "adults") {
         state.adults++;
@@ -74,5 +79,6 @@ export const {
   handleAdd,
   handleDelete,
   clearBooking,
+  deleteDate,
 } = sliceBookingData.actions;
 export default sliceBookingData.reducer;

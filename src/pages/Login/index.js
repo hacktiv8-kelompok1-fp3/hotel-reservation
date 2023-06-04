@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import {
   SafeAreaView,
   StyleSheet,
@@ -22,18 +22,13 @@ const Login = ({ navigation }) => {
   }, [token]);
   const dispatch = useDispatch();
   const [form, setForm] = useForm({
-    email: "",
+    username: "",
     password: "",
   });
 
   const handleSubmit = () => {
-    const payload = {
-      email: form.email,
-      password: form.password,
-    };
-    dispatch(addUsers(payload));
+    dispatch(addUsers({ username: form.username }));
     navigation.navigate("MainApp");
-    // await AsyncStorage.removeItem("root");
   };
   return (
     <SafeAreaView style={{ backgroundColor: mainColors.white, flex: 1 }}>
@@ -53,10 +48,10 @@ const Login = ({ navigation }) => {
         </View>
         <View style={{ marginVertical: 13 }}>
           <TextInputAuth
-            placeholder="Email"
-            value={form.email}
-            onChangeText={(value) => setForm("email", value)}
-            type="email"
+            placeholder="Username"
+            value={form.username}
+            onChangeText={(value) => setForm("username", value)}
+            type="text"
           />
           <TextInputAuth
             placeholder="Password"

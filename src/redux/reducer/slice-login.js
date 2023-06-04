@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { Base64 } from "js-base64";
 
 export const sliceLoginUser = createSlice({
   name: "authorization",
@@ -8,12 +9,12 @@ export const sliceLoginUser = createSlice({
   reducers: {
     addUsers: (state, action) => {
       const item = action.payload;
-      state.token = item;
       console.log(item);
-      // if (item.email !== "") {
-      //   const parse = JSON.stringify(item);
-      //   state.token = btoa(parse);
-      // }
+      // console.log(item);
+      if (item.username !== "") {
+        state.token = item.username;
+        // state.token = Base64.encode(item);
+      }
     },
   },
 });
