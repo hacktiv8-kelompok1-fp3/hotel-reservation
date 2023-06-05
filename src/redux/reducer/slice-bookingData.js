@@ -5,6 +5,7 @@ const sliceBookingData = createSlice({
   name: "bookingdata",
   initialState: {
     detailhotel: {},
+    contactInformation: {},
     checkin: "",
     checkout: "",
     adults: 0,
@@ -17,6 +18,12 @@ const sliceBookingData = createSlice({
     addDetailHotel: (state, action) => {
       state.detailhotel = action.payload;
       state.totalBooking = action.payload.number_of_rooms;
+    },
+    addContactInformation: (state, action) => {
+      const item = action.payload;
+      if (item.fullName !== "" || item.phoneNumber !== "") {
+        state.contactInformation = item;
+      }
     },
     addBookingDate: (state, action) => {
       const startDate = action.payload.startDate;
@@ -62,6 +69,7 @@ const sliceBookingData = createSlice({
     },
     clearBooking: (state) => {
       state.detailhotel = {};
+      state.contactInformation = {};
       state.checkin = "";
       state.checkout = "";
       state.adults = 0;
@@ -76,6 +84,7 @@ const sliceBookingData = createSlice({
 export const {
   addDetailHotel,
   addBookingDate,
+  addContactInformation,
   handleAdd,
   handleDelete,
   clearBooking,

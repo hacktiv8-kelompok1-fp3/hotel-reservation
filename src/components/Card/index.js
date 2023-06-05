@@ -17,7 +17,10 @@ const { width } = Dimensions.get("screen");
 const Card = ({ hotel, navigation }) => {
   console.log("hotels", hotel);
   return (
-    <Pressable onPress={() => navigation.navigate("DetailHotel", hotel)}>
+    <Pressable
+      onPress={() => navigation.navigate("DetailHotel", hotel)}
+      key={hotel.hote_id}
+    >
       <View style={styles.card}>
         <Image
           source={require("../../assets/hotel4.jpg")}

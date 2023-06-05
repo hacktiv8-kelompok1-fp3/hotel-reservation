@@ -9,15 +9,17 @@ export const sliceLoginUser = createSlice({
   reducers: {
     addUsers: (state, action) => {
       const item = action.payload;
-      console.log(item);
-      // console.log(item);
-      if (item.username !== "") {
-        state.token = item.username;
-        // state.token = Base64.encode(item);
+      const parse = Base64.encode(JSON.stringify(item));
+      console.log("parse", parse);
+      if (item.email !== "" || item.password !== "") {
+        state.token = parse;
       }
+    },
+    removeUsers: (state) => {
+      state.token = "";
     },
   },
 });
 
-export const { addUsers } = sliceLoginUser.actions;
+export const { addUsers, removeUsers } = sliceLoginUser.actions;
 export default sliceLoginUser.reducer;

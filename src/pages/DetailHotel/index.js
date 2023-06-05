@@ -24,7 +24,7 @@ const DetailHotel = ({ navigation, route }) => {
   const dispatch = useDispatch();
   const handleClickBook = () => {
     dispatch(addDetailHotel(hotel));
-    navigation.navigate("Booking");
+    navigation.navigate("ContactInformation");
   };
   const handleFavoriteClick = () => {
     dispatch(addFavorites(hotel));

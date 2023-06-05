@@ -11,6 +11,7 @@ import Profile from "../pages/Profile";
 import Login from "../pages/Login";
 import SplashScreen from "../pages/SplashScreen";
 import OrderDetail from "../pages/OrderDetail";
+import ContactInformation from "../pages/ContactInformation";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -68,6 +69,11 @@ export default function Router() {
       <Stack.Screen
         name="Booking"
         component={Booking}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ContactInformation"
+        component={ContactInformation}
         options={{ headerShown: false }}
       />
       <Stack.Screen

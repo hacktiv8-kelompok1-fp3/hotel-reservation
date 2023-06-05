@@ -32,7 +32,7 @@ export default function WishlistScreen({ navigation }) {
         <ScrollView showsVerticalScrollIndicator={false}>
           {favorites?.map((item) => {
             return (
-              <View style={styles.listContainer}>
+              <View style={styles.listContainer} key={item?.hotel_id}>
                 <View style={styles.cardContainer}>
                   <Image
                     source={require("../../assets/hotel4.jpg")}

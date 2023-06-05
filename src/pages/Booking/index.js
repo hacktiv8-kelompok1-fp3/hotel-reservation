@@ -25,6 +25,7 @@ const Booking = ({ navigation }) => {
   const dispatch = useDispatch();
   const {
     detailhotel,
+    contactInformation,
     checkin,
     checkout,
     adults,
@@ -60,6 +61,7 @@ const Booking = ({ navigation }) => {
     const payload = {
       id: generateIdRandom(11),
       hotel: detailhotel,
+      contact: contactInformation,
       room,
       checkin,
       checkout,
@@ -71,7 +73,16 @@ const Booking = ({ navigation }) => {
     dispatch(addHistoryCheckout(payload));
     navigation.navigate("My Orders");
     dispatch(clearBooking());
-  }, [detailhotel, checkin, checkout, adults, children, totalBooking, room]);
+  }, [
+    detailhotel,
+    contactInformation,
+    checkin,
+    checkout,
+    adults,
+    children,
+    totalBooking,
+    room,
+  ]);
 
   return (
     <View style={styles.conatiner}>

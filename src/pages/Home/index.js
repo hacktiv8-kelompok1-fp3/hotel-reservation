@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   FlatList,
   Image,
@@ -10,6 +10,7 @@ import {
   TextInput,
   View,
 } from "react-native";
+import { Base64, decode } from "js-base64";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { useSelector } from "react-redux";
 import Card from "../../components/Card/index.js";
@@ -19,9 +20,13 @@ import mainColors from "../../utils/colors/index.js";
 const Home = ({ navigation }) => {
   const { data } = useGetAllHotelsQuery();
   const { token } = useSelector((state) => state.authorization);
+  const [dataUser, setDataUser] = useState({});
   useEffect(() => {
     if (!token) {
       navigation.replace("Login");
+    } else {
+      const parse = JSON.parse(Base64.decode(token));
+      setDataUser(parse);
     }
   }, [token]);
   return (
@@ -38,15 +43,22 @@ const Home = ({ navigation }) => {
             style={styles.profileImage}
           />
           <View style={{ paddingLeft: 15 }}>
-            <Text style={{ color: mainColors.grey1 }}>Location</Text>
+            <Text
+              style={{
+                color: mainColors.primary2,
+                fontWeight: "bold",
+                fontSize: 15,
+              }}
+            >
+              Hi, {dataUser.username}
+            </Text>
             <Text
               style={{
                 color: mainColors.grey1,
-                fontSize: 20,
-                fontWeight: "bold",
+                fontSize: 13,
               }}
             >
-              Canada
+              {dataUser.email}
             </Text>
           </View>
         </View>

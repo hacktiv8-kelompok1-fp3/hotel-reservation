@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
 
 import {
+  Pressable,
   SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -17,57 +19,71 @@ const Login = ({ navigation }) => {
   const { token } = useSelector((state) => state.authorization);
   useEffect(() => {
     if (token) {
-      navigation.navigate("MainApp");
+      navigation.replace("MainApp");
     }
-  }, [token]);
+  }, [token, navigation]);
   const dispatch = useDispatch();
   const [form, setForm] = useForm({
     username: "",
+    email: "",
     password: "",
   });
 
   const handleSubmit = () => {
-    dispatch(addUsers({ username: form.username }));
+    const payload = {
+      username: form.username,
+      email: form.email,
+      password: form.password,
+    };
+    dispatch(addUsers(payload));
     navigation.navigate("MainApp");
   };
   return (
     <SafeAreaView style={{ backgroundColor: mainColors.white, flex: 1 }}>
-      <View style={{ padding: 10 * 2 }}>
-        <View style={{ alignItems: "center" }}>
-          <Text
-            style={{
-              fontSize: 30,
-              color: mainColors.primary2,
-              fontWeight: "bold",
-              marginVertical: 10 * 3,
-            }}
-          >
-            Login here
-          </Text>
-          <Text style={styles.title2}>Welcome back you've been missed!</Text>
+      <ScrollView showsHorizontalScrollIndicator={false}>
+        <View style={{ padding: 10 * 2 }}>
+          <View style={{ alignItems: "center" }}>
+            <Text
+              style={{
+                fontSize: 30,
+                color: mainColors.primary2,
+                fontWeight: "bold",
+                marginVertical: 10 * 3,
+              }}
+            >
+              Login here
+            </Text>
+            <Text style={styles.title2}>Welcome back you've been missed!</Text>
+          </View>
+          <View style={{ marginVertical: 13 }}>
+            <TextInputAuth
+              placeholder="Username"
+              value={form.username}
+              onChangeText={(value) => setForm("username", value)}
+              type="text"
+            />
+            <TextInputAuth
+              placeholder="Email"
+              value={form.email}
+              onChangeText={(value) => setForm("email", value)}
+              type="email"
+            />
+            <TextInputAuth
+              placeholder="Password"
+              value={form.password}
+              secureTextEntry
+              onChangeText={(value) => setForm("password", value)}
+              type="password"
+            />
+          </View>
+          <Pressable style={styles.btnLogin} onPress={handleSubmit}>
+            <Text style={styles.textLoginBtn}>Sign in</Text>
+          </Pressable>
+          <TouchableOpacity style={{ padding: 10 }}>
+            <Text style={styles.textRegisBtn}>Create new account</Text>
+          </TouchableOpacity>
         </View>
-        <View style={{ marginVertical: 13 }}>
-          <TextInputAuth
-            placeholder="Username"
-            value={form.username}
-            onChangeText={(value) => setForm("username", value)}
-            type="text"
-          />
-          <TextInputAuth
-            placeholder="Password"
-            value={form.password}
-            secureTextEntry
-            onChangeText={(value) => setForm("password", value)}
-            type="password"
-          />
-        </View>
-        <TouchableOpacity style={styles.btnLogin} onPress={handleSubmit}>
-          <Text style={styles.textLoginBtn}>Sign in</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={{ padding: 10 }}>
-          <Text style={styles.textRegisBtn}>Create new account</Text>
-        </TouchableOpacity>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

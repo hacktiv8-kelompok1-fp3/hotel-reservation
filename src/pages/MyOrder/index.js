@@ -34,7 +34,7 @@ const MyOrder = ({ navigation }) => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.container}>
           {history?.map((item) => (
-            <View style={styles.card}>
+            <View style={styles.card} key={item?.hotel?.hotel_id}>
               <View style={styles.containerOrder}>
                 <Text style={styles.orderId}>ORDER ID : {item?.id}</Text>
                 <Icon

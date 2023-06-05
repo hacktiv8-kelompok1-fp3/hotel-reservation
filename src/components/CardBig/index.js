@@ -14,6 +14,7 @@ const { width } = Dimensions.get("screen");
 const CardBig = ({ hotel, navigation }) => {
   return (
     <Pressable
+      key={hotel.hote_id}
       activeOpacity={0.8}
       onPress={() => navigation.navigate("DetailHotel", hotel)}
     >
