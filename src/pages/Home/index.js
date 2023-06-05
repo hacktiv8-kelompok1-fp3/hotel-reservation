@@ -39,7 +39,7 @@ const Home = ({ navigation }) => {
         />
         <View style={styles.header}>
           <Image
-            source={require("../../assets/man-avatar.png")}
+            source={require("../../assets/defaultUser.png")}
             style={styles.profileImage}
           />
           <View style={{ paddingLeft: 15 }}>

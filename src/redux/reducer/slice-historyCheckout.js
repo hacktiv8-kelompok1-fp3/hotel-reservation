@@ -8,7 +8,7 @@ export const sliceHistory = createSlice({
   reducers: {
     addHistoryCheckout: (state, action) => {
       const checkIdhHotel = state.history.find(
-        (item) => item.id === action.payload.id
+        (item) => item.hotel.hotel_id === action.payload.hotel.hotel_id
       );
       if (!checkIdhHotel) {
         state.history.push(action.payload);

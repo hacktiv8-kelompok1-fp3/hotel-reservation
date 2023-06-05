@@ -12,6 +12,7 @@ import Login from "../pages/Login";
 import SplashScreen from "../pages/SplashScreen";
 import OrderDetail from "../pages/OrderDetail";
 import ContactInformation from "../pages/ContactInformation";
+import UpdateProfile from "../pages/UpdateProfile";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -79,6 +80,11 @@ export default function Router() {
       <Stack.Screen
         name="OrderDetail"
         component={OrderDetail}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="UpdateProfile"
+        component={UpdateProfile}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

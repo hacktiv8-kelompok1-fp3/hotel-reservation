@@ -1,9 +1,16 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import mainColors from "../../utils/colors";
+import { addDetailHotel } from "../../redux/reducer/slice-bookingData";
+import { useDispatch } from "react-redux";
 
 export default function Button({ children, navigation, data }) {
+  const dispatch = useDispatch();
+  const handleClick = () => {
+    dispatch(addDetailHotel(data));
+    navigation.navigate("ContactInformation");
+  };
   return (
-    <Pressable onPress={() => navigation.navigate("Booking", data)}>
+    <Pressable onPress={handleClick}>
       <View>
         <Text style={styles.container}>{children}</Text>
       </View>

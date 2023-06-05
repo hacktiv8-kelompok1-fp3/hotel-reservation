@@ -21,9 +21,7 @@ const ProfileInfo = () => {
     <View style={styles.profileContainer}>
       <View style={styles.avatarContainer}>
         <Image
-          source={{
-            uri: "https://pub-static.fotor.com/assets/projects/pages/d5bdd0513a0740a8a38752dbc32586d0/300w/fotor-03d1a91a0cec4542927f53c87e0599f6.jpg",
-          }}
+          source={require("../../assets/defaultUser.png")}
           style={styles.avatar}
         />
       </View>
@@ -36,6 +34,15 @@ const ProfileInfo = () => {
 
 const Profile = ({ navigation }) => {
   const dispatch = useDispatch();
+  const { token } = useSelector((state) => state.authorization);
+  const [dataUser, setDataUser] = useState({});
+  console.log(dataUser);
+  useEffect(() => {
+    if (token) {
+      const parse = JSON.parse(Base64.decode(token));
+      setDataUser(parse);
+    }
+  }, [token]);
   const handleLogout = () => {
     dispatch(removeUsers());
     navigation.replace("Login");
@@ -52,7 +59,11 @@ const Profile = ({ navigation }) => {
       </View>
       <ProfileInfo />
       <View style={{ height: 20 }}></View>
-      <List title="Edit Profile" icon="profile" />
+      <List
+        title="Edit Profile"
+        icon="profile"
+        onPress={() => navigation.navigate("UpdateProfile", dataUser)}
+      />
       <List title="Logout" icon="logout" onPress={handleLogout} />
     </ScrollView>
   );

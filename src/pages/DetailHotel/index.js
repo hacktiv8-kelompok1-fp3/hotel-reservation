@@ -20,7 +20,7 @@ import {
 const DetailHotel = ({ navigation, route }) => {
   const hotel = route.params;
   const { favorites } = useSelector((state) => state.favorite);
-  const isFavorite = favorites.find((item) => item.id === hotel.id);
+  const isFavorite = favorites.find((item) => item.hotel_id === hotel.hotel_id);
   const dispatch = useDispatch();
   const handleClickBook = () => {
     dispatch(addDetailHotel(hotel));
