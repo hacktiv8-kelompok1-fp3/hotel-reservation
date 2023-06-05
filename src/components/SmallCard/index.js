@@ -1,6 +1,5 @@
 import { Image, View, Text, Dimensions, StyleSheet } from "react-native";
 import mainColors from "../../utils/colors";
-
 const { width } = Dimensions.get("screen");
 
 const SmallCard = ({ locationName }) => {
@@ -16,7 +15,7 @@ const SmallCard = ({ locationName }) => {
     </>
   );
 };
-
+//
 const styles = StyleSheet.create({
   smallCardContainer: {
     backgroundColor: mainColors.white,
