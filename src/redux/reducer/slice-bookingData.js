@@ -5,6 +5,7 @@ const sliceBookingData = createSlice({
   name: "bookingdata",
   initialState: {
     detailhotel: {},
+    contactInformation: {},
     checkin: "",
     checkout: "",
     adults: 0,
@@ -16,7 +17,13 @@ const sliceBookingData = createSlice({
   reducers: {
     addDetailHotel: (state, action) => {
       state.detailhotel = action.payload;
-      state.totalBooking = action.payload.price;
+      state.totalBooking = action.payload.number_of_rooms;
+    },
+    addContactInformation: (state, action) => {
+      const item = action.payload;
+      if (item.fullName !== "" || item.phoneNumber !== "") {
+        state.contactInformation = item;
+      }
     },
     addBookingDate: (state, action) => {
       const startDate = action.payload.startDate;
@@ -33,6 +40,11 @@ const sliceBookingData = createSlice({
         }
       }
     },
+    deleteDate: (state, action) => {
+      state.checkin = "";
+      state.checkout = "";
+      state.totalBooking = action.payload.number_of_rooms;
+    },
     handleAdd: (state, action) => {
       if (action.payload.type === "adults") {
         state.adults++;
@@ -44,9 +56,38 @@ const sliceBookingData = createSlice({
         state.room++;
       }
     },
+    handleDelete: (state, action) => {
+      if (action.payload.type === "adults") {
+        state.adults--;
+      }
+      if (action.payload.type === "children") {
+        state.children--;
+      }
+      if (action.payload.type === "room") {
+        state.room--;
+      }
+    },
+    clearBooking: (state) => {
+      state.detailhotel = {};
+      state.contactInformation = {};
+      state.checkin = "";
+      state.checkout = "";
+      state.adults = 0;
+      state.children = 0;
+      state.room = 0;
+      state.numDays = null;
+      state.totalBooking = null;
+    },
   },
 });
 
-export const { addDetailHotel, addBookingDate, handleAdd } =
-  sliceBookingData.actions;
+export const {
+  addDetailHotel,
+  addBookingDate,
+  addContactInformation,
+  handleAdd,
+  handleDelete,
+  clearBooking,
+  deleteDate,
+} = sliceBookingData.actions;
 export default sliceBookingData.reducer;

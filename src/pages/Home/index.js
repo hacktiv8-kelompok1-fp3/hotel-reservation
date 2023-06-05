@@ -1,179 +1,177 @@
-import React from "react";
-import {
-  Ionicons,
-  MaterialCommunityIcons,
-  AntDesign,
-  Octicons,
-} from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
-import ViewAllButton from "../../components/ViewAllButton.js";
-import { View, StyleSheet, Text, Image, TextInput } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  FlatList,
+  Image,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
+import { Base64, decode } from "js-base64";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import { useSelector } from "react-redux";
+import Card from "../../components/Card/index.js";
+import CardBig from "../../components/CardBig/index.js";
 import { useGetAllHotelsQuery } from "../../redux/reducer/slice-hotel";
+import mainColors from "../../utils/colors/index.js";
 
-const Home = () => {
+// import for card city mockup
+import SmallCard from "../../components/SmallCard/index.js";
+// dummy data
+const DATA = [
+  {
+    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
+    location: "Jakarta",
+  },
+  {
+    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
+    location: "Yogyakarta",
+  },
+  {
+    id: "58694a0f-3da1-471f-bd96-145571e29d72",
+    location: "Surabaya",
+  },
+  {
+    id: "58694a0f-3da1-471f-bd96-145571e29d82",
+    location: "Makassar",
+  },
+  {
+    id: "58694a0f-3da1-471f-bd96-145571e39d82",
+    location: "Aceh",
+  },
+];
+//
+
+const Home = ({ navigation }) => {
   const { data } = useGetAllHotelsQuery();
-  // console.log("data", data);
+  const { token } = useSelector((state) => state.authorization);
+  const [dataUser, setDataUser] = useState({});
+  useEffect(() => {
+    if (!token) {
+      navigation.replace("Login");
+    } else {
+      const parse = JSON.parse(Base64.decode(token));
+      setDataUser(parse);
+    }
+  }, [token]);
   return (
-    <>
-      <StatusBar style="dark" />
-      <View style={styles.appContainer}>
-        {/* location Notif */}
-        <View style={styles.infoContainer}>
-          <View style={styles.shortProfilContainer}>
-            <Image
-              source={require("../../assets/man-avatar.png")}
-              style={styles.profilePicture}
-            />
-            <View style={styles.welcomeContainer}>
-              <Text style={styles.welcomeWord}>👋🏼 HELLO THERE </Text>
-              <Text style={styles.userName}>
-                {"Gilang Ahmad" || dataFromState}
-              </Text>
-            </View>
-          </View>
-          {/*  */}
-
-          <MaterialCommunityIcons
-            style={styles.bellIcon}
-            name="bell-outline"
-            size={30}
-            color="black"
+    <SafeAreaView style={{ backgroundColor: mainColors.white, flex: 1 }}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <StatusBar
+          translucent={false}
+          backgroundColor={mainColors.white}
+          barStyle="dark-content"
+        />
+        <View style={styles.header}>
+          <Image
+            source={require("../../assets/defaultUser.png")}
+            style={styles.profileImage}
           />
+          <View style={{ paddingLeft: 15 }}>
+            <Text
+              style={{
+                color: mainColors.primary2,
+                fontWeight: "bold",
+                fontSize: 15,
+              }}
+            >
+              Hi, {dataUser.username}
+            </Text>
+            <Text
+              style={{
+                color: mainColors.grey1,
+                fontSize: 13,
+              }}
+            >
+              {dataUser.email}
+            </Text>
+          </View>
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            paddingHorizontal: 20,
+          }}
+        >
+          <View style={styles.searchInput}>
+            <Icon name="search" size={25} color={mainColors.grey1} />
+            <TextInput
+              placeholder="Search address"
+              style={{ paddingLeft: 10 }}
+            />
+          </View>
         </View>
 
-        {/* search bar */}
-        <View style={styles.searchContainer}>
-          <AntDesign name="search1" size={24} color="black" />
-          <TextInput
-            style={styles.textInput}
-            placeholder="Search here..."
-          ></TextInput>
-          <Octicons name="filter" size={24} color="black" />
+        {/* addtional card list by city  */}
+        <View style={{ paddingTop: 30 }}>
+          <Text style={styles.title}>✈️ Cities</Text>
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={DATA}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <SmallCard locationName={item.location} />
+            )}
+          />
         </View>
         {/*  */}
 
-        {/* first-section */}
-        <View style={styles.SectionContainer}>
-          <View style={styles.SectionTitleContainer}>
-            <Text style={styles.firstSectionTitle}>House Near You</Text>
-            {/* <Button title="View All" /> */}
-            <ViewAllButton>View All</ViewAllButton>
-          </View>
-          <View>
-            <View style={styles.card}>
-              <Image></Image>
-              <Text>TitleOfCard</Text>
-              <Text>Price</Text>
-              <Text>Location</Text>
-              <Text>Info</Text>
-            </View>
-          </View>
-        </View>
+        <View style={{ paddingVertical: 30 }}>
+          <Text style={styles.title}>⭐ Top Hotels</Text>
 
-        {/* second-section */}
-        <View style={styles.SectionContainer}>
-          <View style={styles.SectionTitleContainer}>
-            <Text style={styles.firstSectionTitle}>Featured Listings</Text>
-            {/* <Button title="View All" /> */}
-            <ViewAllButton>View All</ViewAllButton>
-          </View>
-          <View>
-            <Image></Image>
-            <Text>TitleOfCard</Text>
-            <Text>Price</Text>
-            <Text>Location</Text>
-            <Text>Info</Text>
-          </View>
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={data?.result.slice(0, 8)}
+            renderItem={({ item }) => (
+              <Card hotel={item} navigation={navigation} />
+            )}
+          />
+          <Text style={styles.title}>👍🏼 Recommendation Hotels</Text>
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={data?.result.slice(0, 8)}
+            renderItem={({ item }) => (
+              <CardBig hotel={item} navigation={navigation} />
+            )}
+          />
         </View>
-      </View>
-    </>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  appContainer: {
-    backgroundColor: "white",
-    alignItems: "center",
-    marginVertical: 25,
-  },
-
-  // top
-  infoContainer: {
-    width: "90%",
+  header: {
+    paddingVertical: 20,
     flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginVertical: 10,
+    paddingHorizontal: 20,
   },
-  shortProfilContainer: {
-    flexDirection: "row",
+  profileImage: {
+    height: 50,
+    width: 50,
+    borderRadius: 25,
   },
-  profilePicture: {
-    width: 35,
-    height: 35,
-    borderRadius: 50,
-    borderColor: "black",
-    borderWidth: 2,
-  },
-  welcomeContainer: {
-    padding: 1,
-    height: 35,
-    marginLeft: 4,
-  },
-  welcomeWord: {
-    fontSize: 10,
-    color: "#9D9D9D",
-    fontWeight: "bold",
-  },
-  userName: {
-    fontWeight: "bold",
-  },
-  bellIcon: {
-    backgroundColor: "#DDD",
-    padding: 4,
-
-    borderRadius: 50,
-    justifyContent: "center",
-  },
-
-  //search bar
-  searchContainer: {
-    flexDirection: "row",
-    width: "85%",
-    justifyContent: "space-between",
-    backgroundColor: "#DDD",
-    padding: 10,
-    borderRadius: 40,
-    marginVertical: 10,
-  },
-  textInput: {
-    borderRightWidth: 1,
+  searchInput: {
     flex: 1,
-    marginHorizontal: 20,
-  },
-
-  //first-section
-  SectionContainer: {
-    marginVertical: 15,
-    backgroundColor: "#DDD",
-    borderRadius: 20,
-    width: "100%",
-    padding: 10,
-  },
-  SectionTitleContainer: {
+    height: 50,
+    backgroundColor: mainColors.light2,
     flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 10,
+    paddingHorizontal: 20,
+    borderRadius: 12,
   },
-  firstSectionTitle: {
+  title: {
     fontSize: 18,
     fontWeight: "bold",
-  },
-  card: {
-    borderWidth: 2,
-    borderColor: "black",
-    padding: 5,
+    paddingHorizontal: 20,
+    color: mainColors.primary2,
   },
 });
 

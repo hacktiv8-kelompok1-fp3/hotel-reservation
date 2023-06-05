@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import {
   ImageBackground,
   ScrollView,
@@ -12,27 +12,30 @@ import DatePicker from "react-native-neat-date-picker";
 import { useDispatch, useSelector } from "react-redux";
 import GuestInput from "../../components/GuestInput";
 import HeaderBooking from "../../components/HeaderBooking";
-import hotel from "../../const/hotels";
 import {
   addBookingDate,
+  clearBooking,
+  deleteDate,
   handleAdd,
 } from "../../redux/reducer/slice-bookingData";
+import { addHistoryCheckout } from "../../redux/reducer/slice-historyCheckout";
 import mainColors from "../../utils/colors";
 
 const Booking = ({ navigation }) => {
   const dispatch = useDispatch();
   const {
     detailhotel,
+    contactInformation,
     checkin,
     checkout,
     adults,
     children,
     room,
     totalBooking,
+    numDays,
   } = useSelector((state) => state.bookingData);
 
   const onConfirmRange = (date) => {
-    console.log("date", date);
     dispatch(
       addBookingDate({
         startDate: date.startDate,
@@ -42,16 +45,47 @@ const Booking = ({ navigation }) => {
   };
 
   const onCancelRange = () => {
-    setStartDate("");
-    setEndDate("");
+    dispatch(deleteDate(detailhotel));
   };
 
+  function generateIdRandom(length) {
+    let result = "";
+    const number = "0123456789";
+    const lengthCharacter = number.length;
+    for (let i = 0; i < length; i++) {
+      result += number.charAt(Math.floor(Math.random() * lengthCharacter));
+    }
+    return result;
+  }
+  const handleBooking = useCallback(() => {
+    const payload = {
+      id: generateIdRandom(11),
+      hotel: detailhotel,
+      contact: contactInformation,
+      room,
+      checkin,
+      checkout,
+      adults,
+      children,
+      totalBooking,
+      numDays,
+    };
+    dispatch(addHistoryCheckout(payload));
+    navigation.navigate("My Orders");
+    dispatch(clearBooking());
+  }, [
+    detailhotel,
+    contactInformation,
+    checkin,
+    checkout,
+    adults,
+    children,
+    totalBooking,
+    room,
+  ]);
+
   return (
-    <ImageBackground
-      style={styles.conatiner}
-      imageStyle={styles.image}
-      source={hotel.image}
-    >
+    <View style={styles.conatiner}>
       <StatusBar hidden />
       <HeaderBooking
         title={detailhotel?.name}
@@ -87,19 +121,15 @@ const Booking = ({ navigation }) => {
             title="Adults"
             description="Over 17 Years"
             count={adults}
-            onPress={() => dispatch(handleAdd({ type: "adults" }))}
+            type="adults"
           />
           <GuestInput
             title="Children"
             description="Under 17 Years"
             count={children}
-            onPress={() => dispatch(handleAdd({ type: "children" }))}
+            type="children"
           />
-          <GuestInput
-            title="Room"
-            count={room}
-            onPress={() => dispatch(handleAdd({ type: "room" }))}
-          />
+          <GuestInput title="Room" count={room} type="room" />
           <View style={styles.footer}>
             <View>
               <Text style={{ color: mainColors.primary3, fontWeight: "bold" }}>
@@ -109,24 +139,27 @@ const Booking = ({ navigation }) => {
                 Total Price
               </Text>
             </View>
-            <TouchableOpacity
-              style={styles.bookNowBtn}
-              onPress={() => navigation.navigate("Home")}
-            >
-              <Text style={{ color: mainColors.white, fontWeight: "bold" }}>
-                Book Now
-              </Text>
-            </TouchableOpacity>
+            {room > 0 && adults > 0 && (
+              <TouchableOpacity
+                style={styles.bookNowBtn}
+                onPress={handleBooking}
+              >
+                <Text style={{ color: mainColors.white, fontWeight: "bold" }}>
+                  Book Now
+                </Text>
+              </TouchableOpacity>
+            )}
           </View>
         </ScrollView>
       </View>
-    </ImageBackground>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   conatiner: {
     flex: 1,
+    backgroundColor: mainColors.primary2,
   },
   image: {
     opacity: 0.6,

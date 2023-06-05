@@ -13,7 +13,7 @@ const TextInputAuth = ({ ...props }) => {
         {
           fontWeight: "400",
           fontSize: 16,
-          padding: 10 * 2,
+          padding: 7 * 2,
           backgroundColor: mainColors.light2,
           borderRadius: 10,
           marginVertical: 10,

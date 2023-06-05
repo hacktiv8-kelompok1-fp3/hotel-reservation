@@ -1,47 +1,37 @@
 import React from "react";
 import {
-  View,
-  StyleSheet,
-  Text,
+  ImageBackground,
   ScrollView,
   StatusBar,
-  ImageBackground,
+  StyleSheet,
+  Text,
   TouchableOpacity,
+  View,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import mainColors from "../../utils/colors";
-import hotel from "../../const/hotels";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addDetailHotel } from "../../redux/reducer/slice-bookingData";
-import { useState } from "react";
 import {
   addFavorites,
   removeFavorites,
 } from "../../redux/reducer/slice-favorites";
 
-const DetailHotel = ({ navigation }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
+const DetailHotel = ({ navigation, route }) => {
+  const hotel = route.params;
+  const { favorites } = useSelector((state) => state.favorite);
+  const isFavorite = favorites.find((item) => item.hotel_id === hotel.hotel_id);
   const dispatch = useDispatch();
-  const hotels = {
-    id: hotel.id,
-    name: hotel.name,
-    location: hotel.location,
-    price: hotel.price,
-    image: hotel.price,
-    details: hotel.details,
-  };
   const handleClickBook = () => {
-    dispatch(addDetailHotel(hotels));
-    navigation.navigate("Booking");
+    dispatch(addDetailHotel(hotel));
+    navigation.navigate("ContactInformation");
   };
-  const handleClickFavorites = () => {
-    if (isFavorite) {
-      dispatch(removeFavorites(hotels?.id));
-      setIsFavorite(false);
-    } else {
-      dispatch(addFavorites(hotels));
-      setIsFavorite(true);
-    }
+  const handleFavoriteClick = () => {
+    dispatch(addFavorites(hotel));
+  };
+
+  const handleUnFavoriteClick = () => {
+    dispatch(removeFavorites(hotel?.hotel_id));
   };
   return (
     <ScrollView
@@ -55,22 +45,30 @@ const DetailHotel = ({ navigation }) => {
         translucent
         backgroundColor="rgba(0,0,0,0)"
       />
-      <ImageBackground style={styles.headerImage} source={hotel.image}>
+      <ImageBackground
+        style={styles.headerImage}
+        source={require("../../assets/hotel4.jpg")}
+      >
         <View style={styles.header}>
-          <Icon name="arrow-back-ios" color={mainColors.white} size={28} />
+          <Icon
+            name="arrow-back-ios"
+            color={mainColors.white}
+            size={28}
+            onPress={navigation.goBack}
+          />
           {isFavorite ? (
             <Icon
               name="favorite"
               color={mainColors.pink}
               size={28}
-              onPress={handleClickFavorites}
+              onPress={handleUnFavoriteClick}
             />
           ) : (
             <Icon
               name="favorite-outline"
               color={mainColors.white}
               size={28}
-              onPress={handleClickFavorites}
+              onPress={handleFavoriteClick}
             />
           )}
         </View>
@@ -81,7 +79,9 @@ const DetailHotel = ({ navigation }) => {
         </View>
         <View style={styles.containerDetail}>
           <Text style={styles.title}>{hotel.name}</Text>
-          <Text style={styles.location}>{hotel.location}</Text>
+          <Text style={styles.location}>
+            {hotel.city}, {hotel.address}
+          </Text>
           <View style={styles.containerReview}>
             <View style={{ flexDirection: "row" }}>
               <Icon name="star" size={20} color={mainColors.orange} />
@@ -91,12 +91,12 @@ const DetailHotel = ({ navigation }) => {
             </View>
             <Text style={styles.reviews}>365reviews</Text>
           </View>
-          <Text style={styles.description}>{hotel.details}</Text>
+          <Text style={styles.description}>{hotel.hotel_description}</Text>
         </View>
         <View style={styles.containerBooking}>
           <View style={styles.booking}>
             <Text style={{ fontSize: 18, color: mainColors.white }}>
-              ${hotel.price}
+              ${hotel.number_of_rooms}
             </Text>
             <Text
               style={{ fontSize: 12, color: mainColors.white, marginLeft: 5 }}

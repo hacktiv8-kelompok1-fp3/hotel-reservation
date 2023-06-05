@@ -9,6 +9,10 @@ import MyOrder from "../pages/MyOrder";
 import Favorites from "../pages/Favorites";
 import Profile from "../pages/Profile";
 import Login from "../pages/Login";
+import SplashScreen from "../pages/SplashScreen";
+import OrderDetail from "../pages/OrderDetail";
+import ContactInformation from "../pages/ContactInformation";
+import UpdateProfile from "../pages/UpdateProfile";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -42,7 +46,17 @@ function MainApp() {
 
 export default function Router() {
   return (
-    <Stack.Navigator initialRouteName="DetailHotel">
+    <Stack.Navigator>
+      <Stack.Screen
+        name="SplashScreen"
+        component={SplashScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen
         name="MainApp"
         component={MainApp}
@@ -59,8 +73,18 @@ export default function Router() {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="Login"
-        component={Login}
+        name="ContactInformation"
+        component={ContactInformation}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="OrderDetail"
+        component={OrderDetail}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="UpdateProfile"
+        component={UpdateProfile}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
