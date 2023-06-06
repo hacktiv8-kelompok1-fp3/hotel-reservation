@@ -1,6 +1,6 @@
 # Hotel Reservation
-Final Project 3 (Mobile App) - Hotel Reservation App
-APi: https://www.booking.com/
+- Final Project 3 (Mobile App) - Hotel Reservation App
+- APi: https://www.booking.com/
 
 # 👨‍💻Tim member
 1. Bilal Al Ghiffari
