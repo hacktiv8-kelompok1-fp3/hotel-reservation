@@ -68,10 +68,11 @@ const ContactInformation = ({ navigation }) => {
               type="email"
             />
             <TextInputAuth
+              keyboardType="number-pad"
               placeholder="PhoneNumber"
               value={form.phoneNumber}
               onChangeText={(value) => setForm("phoneNumber", value)}
-              type="text"
+              // type="text"
             />
           </View>
           <Pressable style={styles.btnLogin} onPress={handleBooking}>
