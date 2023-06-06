@@ -3,12 +3,12 @@
 - APi: https://www.booking.com/
 
 # 👨‍💻Tim member
-1. Bilal Al Ghiffari
-2. Dinda Friska Oktaviana
-3. Muhammad Aminuddin Rusydi
+- Bilal Al Ghiffari
+- Dinda Friska Oktaviana
+- Muhammad Aminuddin Rusydi
 
 # 🔨Tools
-1. React Native
-2. Redux Persist
-3. Redux Query
-4. Router (React Native Navigation)
+- React Native
+- Redux Persist
+- Redux Query
+- Router (React Native Navigation)
