@@ -1,4 +1,5 @@
 import { StatusBar } from "expo-status-bar";
+import { Base64 } from "js-base64";
 import React, { useEffect, useState } from "react";
 import {
   FlatList,
@@ -10,15 +11,19 @@ import {
   TextInput,
   View,
 } from "react-native";
-import { Base64, decode } from "js-base64";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { useSelector } from "react-redux";
 import Card from "../../components/Card/index.js";
 import CardBig from "../../components/CardBig/index.js";
-import { useGetAllHotelsQuery } from "../../redux/reducer/slice-hotel";
+import SmallCard from "../../components/SmallCard/index.js";
+import {
+  useGetAllCitiesQuery,
+  useGetAllHotelsQuery,
+} from "../../redux/reducer/slice-hotel";
 import mainColors from "../../utils/colors/index.js";
 const Home = ({ navigation }) => {
-  const { data } = useGetAllHotelsQuery();
+  const { data: hotel } = useGetAllHotelsQuery();
+  const { data: cities } = useGetAllCitiesQuery();
   const { token } = useSelector((state) => state.authorization);
   const [dataUser, setDataUser] = useState({});
   useEffect(() => {
@@ -77,14 +82,22 @@ const Home = ({ navigation }) => {
             />
           </View>
         </View>
-
+        <View style={{ paddingTop: 30 }}>
+          <Text style={styles.title}>✈️ Cities</Text>
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={cities?.result.slice(0, 8)}
+            renderItem={({ item }) => <SmallCard locationName={item} />}
+          />
+        </View>
         <View style={{ paddingVertical: 30 }}>
           <Text style={styles.title}>Top Hotels</Text>
 
           <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
-            data={data?.result.slice(0, 8)}
+            data={hotel?.result.slice(0, 8)}
             renderItem={({ item }) => (
               <Card hotel={item} navigation={navigation} />
             )}
@@ -93,7 +106,7 @@ const Home = ({ navigation }) => {
           <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
-            data={data?.result.slice(0, 8)}
+            data={hotel?.result.slice(0, 8)}
             renderItem={({ item }) => (
               <CardBig hotel={item} navigation={navigation} />
             )}

@@ -136,6 +136,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     borderRadius: 15,
     padding: 5,
+    justifyContent: "space-between",
   },
   imageStyle: {
     width: "26%",
