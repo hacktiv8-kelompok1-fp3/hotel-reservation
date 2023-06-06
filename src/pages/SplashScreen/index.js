@@ -17,21 +17,24 @@ const { height, width } = Dimensions.get("screen");
 const slides = [
   {
     id: "1",
-    image: require("../../assets/image1.png"),
-    title: "Best Digital Solution",
-    subtitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    image: require("../../assets/img1.jpeg"), //image1.png
+    title: "let's start our journey",
+    subtitle:
+      "This holiday season, make the most of every moment with us. Take pleasure in the perfect escape.",
   },
   {
     id: "2",
-    image: require("../../assets/image2.png"),
-    title: "Achieve Your Goals",
-    subtitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    image: require("../../assets/img2.jpeg"), //image2.png
+    title: "Make your stay memorable",
+    subtitle:
+      "Make the best of your vacations by getting enough rest and relaxation.",
   },
   {
     id: "3",
-    image: require("../../assets/image3.png"),
-    title: "Increase Your Value",
-    subtitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    image: require("../../assets/img3.jpeg"), //image3.png
+    title: "Where the world comes to stay",
+    subtitle:
+      " If you are looking for where to go and how to do it,then our hotel is the right spot for you.",
   },
 ];
 
@@ -55,7 +58,6 @@ const SplashScreen = ({ navigation }) => {
       const offset = nextSlideIndex * width;
       ref?.current?.scrollToOffset({ offset });
       setCurrentSlide(currentSlide + 1);
-      console.log("next", offset);
     }
   };
 
@@ -64,7 +66,6 @@ const SplashScreen = ({ navigation }) => {
     const offset = lastSlideIndex * width;
     ref?.current?.scrollToOffset({ offset });
     setCurrentSlide(lastSlideIndex);
-    console.log(offset);
   };
   const Footer = () => {
     return (

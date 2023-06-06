@@ -17,7 +17,10 @@ export const hotelsApi = createApi({
     getAllHotels: builder.query({
       query: () => "static/hotels",
     }),
+    getAllCities: builder.query({
+      query: () => "static/cities",
+    }),
   }),
 });
 
-export const { useGetAllHotelsQuery } = hotelsApi;
+export const { useGetAllHotelsQuery, useGetAllCitiesQuery } = hotelsApi;

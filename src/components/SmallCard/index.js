@@ -5,12 +5,12 @@ const { width } = Dimensions.get("screen");
 const SmallCard = ({ locationName }) => {
   return (
     <>
-      <View style={styles.smallCardContainer}>
+      <View style={styles.smallCardContainer} key={locationName.city_id}>
         <Image
           source={require("../../assets/hotel4.jpg")}
           style={styles.Image}
         />
-        <Text style={styles.text}>{locationName}</Text>
+        <Text style={styles.text}>{locationName.name}</Text>
       </View>
     </>
   );

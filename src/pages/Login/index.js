@@ -21,7 +21,7 @@ const Login = ({ navigation }) => {
     if (token) {
       navigation.replace("MainApp");
     }
-  }, [token, navigation]);
+  }, [token]);
   const dispatch = useDispatch();
   const [form, setForm] = useForm({
     username: "",
@@ -30,13 +30,10 @@ const Login = ({ navigation }) => {
   });
 
   const handleSubmit = () => {
-    const payload = {
-      username: form.username,
-      email: form.email,
-      password: form.password,
-    };
-    dispatch(addUsers(payload));
-    navigation.navigate("MainApp");
+    if (form.username !== "" && form.email !== "" && form.password !== "") {
+      dispatch(addUsers({ ...form }));
+      navigation.navigate("MainApp");
+    }
   };
   return (
     <SafeAreaView style={{ backgroundColor: mainColors.white, flex: 1 }}>
