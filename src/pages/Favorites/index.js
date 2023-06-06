@@ -136,6 +136,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     borderRadius: 15,
     padding: 5,
+    justifyContent: "space-between",
   },
   imageStyle: {
     width: "26%",
@@ -145,6 +146,8 @@ const styles = StyleSheet.create({
   cardInfoContainer: {
     paddingLeft: 15,
     alignItems: "flex-start",
+    flex: 1,
+    justifyContent: "space-between",
   },
   cardCategory: {
     color: mainColors.primary2,
