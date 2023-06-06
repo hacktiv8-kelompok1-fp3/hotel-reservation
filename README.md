@@ -11,3 +11,4 @@ APi: https://www.booking.com/
 1. React Native
 2. Redux Persist
 3. Redux Query
+4. Router (React Native Navigation)
