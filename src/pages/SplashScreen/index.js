@@ -55,7 +55,6 @@ const SplashScreen = ({ navigation }) => {
       const offset = nextSlideIndex * width;
       ref?.current?.scrollToOffset({ offset });
       setCurrentSlide(currentSlide + 1);
-      console.log("next", offset);
     }
   };
 
@@ -64,7 +63,6 @@ const SplashScreen = ({ navigation }) => {
     const offset = lastSlideIndex * width;
     ref?.current?.scrollToOffset({ offset });
     setCurrentSlide(lastSlideIndex);
-    console.log(offset);
   };
   const Footer = () => {
     return (

@@ -15,7 +15,6 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 const { width } = Dimensions.get("screen");
 
 const Card = ({ hotel, navigation }) => {
-  console.log("hotels", hotel);
   return (
     <Pressable
       onPress={() => navigation.navigate("DetailHotel", hotel)}

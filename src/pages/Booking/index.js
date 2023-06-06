@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import {
   ImageBackground,
   ScrollView,
@@ -91,7 +91,7 @@ const Booking = ({ navigation }) => {
         title={detailhotel?.name}
         startDate={checkin}
         endDate={checkout}
-        onPress={navigation.goBack}
+        onPress={() => navigation.navigate("ContactInformation")}
       />
       <View style={styles.count3}>
         <ScrollView showsVerticalScrollIndicator={false}>

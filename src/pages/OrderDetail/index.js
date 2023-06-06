@@ -1,24 +1,22 @@
 import React from "react";
 import {
-  View,
-  StyleSheet,
-  SafeAreaView,
-  Text,
-  StatusBar,
   Image,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
 } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import mainColors from "../../utils/colors";
-import Icon from "react-native-vector-icons/MaterialIcons";
-import Moon from "react-native-vector-icons/Ionicons";
-import IconFontAwesome from "react-native-vector-icons/FontAwesome5";
+import IconFeather from "react-native-vector-icons/Feather";
 import Room from "react-native-vector-icons/FontAwesome";
+import IconFontAwesome from "react-native-vector-icons/FontAwesome5";
+import Moon from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { useSelector } from "react-redux";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import mainColors from "../../utils/colors";
 
 const OrderDetail = ({ navigation, route }) => {
   const item = route.params;
-  console.log("item", item);
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: mainColors.primary2 }}>
       <StatusBar
@@ -118,6 +116,57 @@ const OrderDetail = ({ navigation, route }) => {
             <Room name="hotel" size={17} color={mainColors.primary2} />
 
             <Text style={{ marginLeft: 10 }}>{item.room} Room</Text>
+          </View>
+        </View>
+        <View style={{ marginTop: 50 }}>
+          <Text
+            style={{
+              fontSize: 17,
+              color: mainColors.primary3,
+              fontWeight: "bold",
+            }}
+          >
+            {item.contact.fullName}
+          </Text>
+          <View style={{ marginTop: 20 }}>
+            <View style={{ flexDirection: "row" }}>
+              <MaterialCommunityIcons
+                name="email-outline"
+                size={17}
+                color={mainColors.primary2}
+              />
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  flex: 1,
+                }}
+              >
+                <Text style={{ paddingLeft: 10, color: mainColors.grey1 }}>
+                  Email
+                </Text>
+                <Text>{item.contact.email}</Text>
+              </View>
+            </View>
+            <View style={{ flexDirection: "row", marginTop: 20 }}>
+              <IconFeather
+                name="smartphone"
+                size={17}
+                color={mainColors.primary2}
+              />
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  flex: 1,
+                }}
+              >
+                <Text style={{ paddingLeft: 10, color: mainColors.grey1 }}>
+                  Phone
+                </Text>
+                <Text>{item.contact.phoneNumber}</Text>
+              </View>
+            </View>
           </View>
         </View>
       </View>

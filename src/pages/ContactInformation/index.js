@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   addContactInformation,
   clearBooking,
+  clearContactInformation,
 } from "../../redux/reducer/slice-bookingData";
 import {
   addFieldContact,
@@ -31,8 +32,11 @@ const ContactInformation = ({ navigation }) => {
   });
 
   const handleBooking = () => {
-    dispatch(addContactInformation({ ...form }));
-    navigation.navigate("Booking");
+    if (form.email !== "" || form.phoneNumber !== "") {
+      dispatch(addContactInformation({ ...form }));
+      setForm("reset");
+      navigation.navigate("Booking");
+    }
   };
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: mainColors.primary2 }}>
