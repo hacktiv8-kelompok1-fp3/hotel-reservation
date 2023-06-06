@@ -9,3 +9,5 @@ APi: https://www.booking.com/
 
 # 🔨Tools
 1. React Native
+2. Redux Persist
+3. Redux Query
