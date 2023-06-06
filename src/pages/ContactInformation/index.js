@@ -1,4 +1,3 @@
-import React, { useCallback } from "react";
 import {
   View,
   StyleSheet,
@@ -12,15 +11,12 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import mainColors from "../../utils/colors";
 import TextInputAuth from "../../components/TextInputAuth";
 import { useForm } from "../../utils/useForm";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   addContactInformation,
   clearBooking,
+  clearContactInformation,
 } from "../../redux/reducer/slice-bookingData";
-import {
-  addFieldContact,
-  addHistoryCheckout,
-} from "../../redux/reducer/slice-historyCheckout";
 
 const ContactInformation = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -31,8 +27,11 @@ const ContactInformation = ({ navigation }) => {
   });
 
   const handleBooking = () => {
-    dispatch(addContactInformation({ ...form }));
-    navigation.navigate("Booking");
+    if (form.email !== "" || form.phoneNumber !== "") {
+      dispatch(addContactInformation({ ...form }));
+      setForm("reset");
+      navigation.navigate("Booking");
+    }
   };
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: mainColors.primary2 }}>
@@ -68,10 +67,10 @@ const ContactInformation = ({ navigation }) => {
               type="email"
             />
             <TextInputAuth
+              keyboardType="number-pad"
               placeholder="PhoneNumber"
               value={form.phoneNumber}
               onChangeText={(value) => setForm("phoneNumber", value)}
-              type="text"
             />
           </View>
           <Pressable style={styles.btnLogin} onPress={handleBooking}>

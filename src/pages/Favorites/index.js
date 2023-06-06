@@ -120,14 +120,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     letterSpacing: 4,
   },
-  // listCard
-  listContainer: {
-    // width: "100%",
-    // backgroundColor: "#D2D2D2",
-    // height: "100%",
-    // alignItems: "center",
-    // paddingHorizontal: 20,
-  },
+
   //Card
   cardContainer: {
     backgroundColor: "white",

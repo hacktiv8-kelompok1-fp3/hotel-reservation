@@ -10,7 +10,6 @@ import { Base64 } from "js-base64";
 const ProfileInfo = () => {
   const { token } = useSelector((state) => state.authorization);
   const [dataUser, setDataUser] = useState({});
-  console.log(dataUser);
   useEffect(() => {
     if (token) {
       const parse = JSON.parse(Base64.decode(token));
@@ -36,7 +35,6 @@ const Profile = ({ navigation }) => {
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.authorization);
   const [dataUser, setDataUser] = useState({});
-  console.log(dataUser);
   useEffect(() => {
     if (token) {
       const parse = JSON.parse(Base64.decode(token));

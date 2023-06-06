@@ -76,7 +76,7 @@ const MyOrder = ({ navigation }) => {
                     color: mainColors.white,
                   }}
                 >
-                  See Voucher
+                  See Orders
                 </Text>
               </Pressable>
             </View>

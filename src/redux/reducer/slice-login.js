@@ -10,8 +10,7 @@ export const sliceLoginUser = createSlice({
     addUsers: (state, action) => {
       const item = action.payload;
       const parse = Base64.encode(JSON.stringify(item));
-      console.log("parse", parse);
-      if (item.email !== "" || item.password !== "") {
+      if (item.username !== "" && item.email !== "" && item.password !== "") {
         state.token = parse;
       }
     },
