@@ -36,12 +36,12 @@ const slides = [
 ];
 
 const SplashScreen = ({ navigation }) => {
-  const { token } = useSelector((state) => state.authorization);
-  useEffect(() => {
-    if (token) {
-      navigation.replace("MainApp");
-    }
-  }, [token]);
+  // const { token } = useSelector((state) => state.authorization);
+  // useEffect(() => {
+  //   if (token) {
+  //     navigation.replace("MainApp");
+  //   }
+  // }, [token]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const ref = useRef(null);
   const updateCurrentSlideIndex = (e) => {
@@ -98,7 +98,7 @@ const SplashScreen = ({ navigation }) => {
             <View style={{ height: 50 }}>
               <TouchableOpacity
                 style={styles.btn}
-                onPress={() => navigation.navigate("Login")}
+                onPress={() => navigation.navigate("MainApp")}
               >
                 <Text
                   style={{

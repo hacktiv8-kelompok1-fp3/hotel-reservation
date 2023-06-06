@@ -22,14 +22,12 @@ import {
 } from "../../redux/reducer/slice-hotel";
 import mainColors from "../../utils/colors/index.js";
 const Home = ({ navigation }) => {
-  const { data: hotel } = useGetAllHotelsQuery();
-  const { data: cities } = useGetAllCitiesQuery();
+  const { data: hotel } = useGetAllHotelsQuery({ country: "id" });
+  const { data: cities } = useGetAllCitiesQuery({ country: "id" });
   const { token } = useSelector((state) => state.authorization);
   const [dataUser, setDataUser] = useState({});
   useEffect(() => {
-    if (!token) {
-      navigation.replace("Login");
-    } else {
+    if (token) {
       const parse = JSON.parse(Base64.decode(token));
       setDataUser(parse);
     }
@@ -42,31 +40,36 @@ const Home = ({ navigation }) => {
           backgroundColor={mainColors.white}
           barStyle="dark-content"
         />
-        <View style={styles.header}>
-          <Image
-            source={require("../../assets/defaultUser.png")}
-            style={styles.profileImage}
-          />
-          <View style={{ paddingLeft: 15 }}>
-            <Text
-              style={{
-                color: mainColors.primary2,
-                fontWeight: "bold",
-                fontSize: 15,
-              }}
-            >
-              Hi, {dataUser.username}
-            </Text>
-            <Text
-              style={{
-                color: mainColors.grey1,
-                fontSize: 13,
-              }}
-            >
-              {dataUser.email}
-            </Text>
+        {!token ? (
+          <></>
+        ) : (
+          <View style={styles.header}>
+            <Image
+              source={require("../../assets/defaultUser.png")}
+              style={styles.profileImage}
+            />
+            <View style={{ paddingLeft: 15 }}>
+              <Text
+                style={{
+                  color: mainColors.primary2,
+                  fontWeight: "bold",
+                  fontSize: 15,
+                }}
+              >
+                {`Hi, ${dataUser.username}`}
+              </Text>
+              <Text
+                style={{
+                  color: mainColors.grey1,
+                  fontSize: 13,
+                }}
+              >
+                {dataUser.email}
+              </Text>
+            </View>
           </View>
-        </View>
+        )}
+
         <View
           style={{
             flexDirection: "row",
@@ -122,6 +125,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     flexDirection: "row",
     paddingHorizontal: 20,
+    marginTop: 15,
   },
   profileImage: {
     height: 50,
@@ -135,6 +139,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 20,
+    marginTop: 50,
     borderRadius: 12,
   },
   title: {

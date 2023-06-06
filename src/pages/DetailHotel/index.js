@@ -96,7 +96,7 @@ const DetailHotel = ({ navigation, route }) => {
         <View style={styles.containerBooking}>
           <View style={styles.booking}>
             <Text style={{ fontSize: 18, color: mainColors.white }}>
-              ${hotel.number_of_rooms}
+              {hotel.currency} {hotel.number_of_rooms}
             </Text>
             <Text
               style={{ fontSize: 12, color: mainColors.white, marginLeft: 5 }}

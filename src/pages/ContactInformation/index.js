@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import {
   View,
   StyleSheet,
@@ -25,6 +25,12 @@ import {
 
 const ContactInformation = ({ navigation }) => {
   const dispatch = useDispatch();
+  const { token } = useSelector((state) => state.authorization);
+  useEffect(() => {
+    if (!token) {
+      navigation.replace("Login");
+    }
+  }, [token]);
   const [form, setForm] = useForm({
     fullName: "",
     email: "",

@@ -15,11 +15,12 @@ export const hotelsApi = createApi({
   }),
   endpoints: (builder) => ({
     getAllHotels: builder.query({
-      query: () => "static/hotels",
+      query: (queryParam) => `static/hotels?country=${queryParam?.country}`,
     }),
     getAllCities: builder.query({
-      query: () => "static/cities",
+      query: (queryParam) => `static/cities?country=${queryParam?.country}`,
     }),
+    // getSearch: builder.
   }),
 });
 
