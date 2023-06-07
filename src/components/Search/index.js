@@ -4,6 +4,7 @@ import { View, StyleSheet, Pressable, Text } from "react-native";
 import Input from "../Input";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  getClearSearch,
   getDataSearch,
   getGuess,
   getSearch,
@@ -12,23 +13,30 @@ import mainColors from "../../utils/colors";
 import { useForm } from "../../utils/useForm";
 import { useGetSearchAllHotelQuery } from "../../redux/reducer/slice-hotel";
 
-const Search = () => {
-  const { dateRangeItem, checkin, checkout, adult, children, room } =
+const Search = ({ navigation }) => {
+  const [itemLocation] = useState([
+    { id: 1, label: "Jakarta", value: -2679652 },
+    { id: 2, label: "Yogyakarta", value: -2703546 },
+    { id: 3, label: "Bali", value: -2701757 },
+  ]);
+  const { dateRangeItem, checkin, checkout, adult, children, room, location } =
     useSelector((state) => state.search);
   const { data } = useGetSearchAllHotelQuery({
+    dest_id: location,
     checkin_date: checkin,
     checkout_date: checkout,
     adults_number: adult,
     children_number: children,
     room_number: room,
   });
-  console.log("dataHotel", data);
+  // console.log("dataHotel", data);
   const dispatch = useDispatch();
   const [date, setDate] = useState("");
   const [form, setForm] = useForm({
-    adult: "",
-    children: "",
-    room: "",
+    location: -2679652,
+    adult: 1,
+    children: 1,
+    room: 1,
   });
   const [showDatePicker, setShowDatePicker] = useState(false);
   const openDatePicker = () => setShowDatePicker(true);
@@ -48,26 +56,34 @@ const Search = () => {
   }, [dateRangeItem]);
 
   useEffect(() => {
-    dispatch(getDataSearch(data.result));
-  }, [data]);
+    dispatch(getDataSearch(data?.result));
+  }, [data, dispatch]);
 
   const onCancelRange = () => {
-    dispatch(deleteDate(detailhotel));
+    setShowDatePicker(false);
+    // dispatch(deleteDate(detailhotel));
   };
 
   const handleBooking = () => {
     dispatch(getGuess({ ...form }));
     setForm("reset");
-    dispatch(getClearSearch());
-    // navigation.navigate("Booking");
+    // dispatch(getClearSearch());
+    navigation.navigate("MainApp");
   };
   return (
-    <View style={styles.datePicker}>
-      <Pressable onPress={openDatePicker}>
-        <Input value={date} />
+    <View style={styles.container}>
+      <Input
+        value={form.location}
+        select
+        selectItem={itemLocation}
+        onValueChange={(value) => setForm("location", value)}
+      />
+      <Pressable style={styles.inputDate} onPress={openDatePicker}>
+        <Text>{date}</Text>
       </Pressable>
       <DatePicker
         mode="range"
+        modalStyles={styles.modalRange}
         isVisible={showDatePicker}
         onConfirm={onConfirmRange}
         onCancel={onCancelRange}
@@ -80,32 +96,44 @@ const Search = () => {
           selectedDateBackgroundColor: mainColors.primary3,
         }}
       />
-      <View>
-        <Input
-          value={form.adult}
-          onChangeText={(value) => setForm("adult", value)}
-        />
-        <Input
-          value={form.children}
-          onChangeText={(value) => setForm("children", value)}
-        />
-        <Input
-          value={form.room}
-          onChangeText={(value) => setForm("room", value)}
-        />
-        <Pressable style={styles.btnLogin} onPress={handleBooking}>
-          <Text style={styles.textLoginBtn}>continue to booking</Text>
-        </Pressable>
-      </View>
+      <Input
+        value={form.adult}
+        onChangeText={(value) => setForm("adult", value)}
+      />
+      <Input
+        value={form.children}
+        onChangeText={(value) => setForm("children", value)}
+      />
+      <Input
+        value={form.room}
+        onChangeText={(value) => setForm("room", value)}
+      />
+      <Pressable style={styles.btnLogin} onPress={handleBooking}>
+        <Text style={styles.textLoginBtn}>continue to booking</Text>
+      </Pressable>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  datePicker: {
-    marginHorizontal: 50,
-    marginTop: 100,
-    marginBottom: 100,
+  container: {
+    backgroundColor: "#fff",
+    paddingVertical: 20,
+    paddingHorizontal: 30,
+  },
+  modalRange: {
+    marginTop: -50,
+    backgroundColor: "rgba(0, 0, 0, 0)",
+  },
+  inputDate: {
+    borderWidth: 1,
+    borderRadius: 10,
+    height: 55,
+    backgroundColor: mainColors.light2,
+    paddingHorizontal: 20,
+    justifyContent: "center",
+    borderRadius: 10,
+    marginTop: 30,
   },
 });
 

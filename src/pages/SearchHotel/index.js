@@ -2,10 +2,10 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 import Search from "../../components/Search";
 
-const SearchHotel = () => {
+const SearchHotel = ({ navigation }) => {
   return (
-    <View style={{ marginTop: 50 }}>
-      <Search />
+    <View>
+      <Search navigation={navigation} />
     </View>
   );
 };

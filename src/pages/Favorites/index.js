@@ -35,16 +35,16 @@ export default function WishlistScreen({ navigation }) {
               <View style={styles.listContainer} key={item?.hotel_id}>
                 <View style={styles.cardContainer}>
                   <Image
-                    source={require("../../assets/hotel4.jpg")}
+                    source={{ uri: item?.max_photo_url }}
                     style={styles.imageStyle}
                   />
                   <View style={styles.cardInfoContainer}>
                     <Text style={styles.cardCategory}>
-                      {"HOTEL" || state.category}
+                      {item?.accommodation_type_name}
                     </Text>
                     <View style={styles.titleLocationContainer}>
                       <Text style={styles.cardTitle}>
-                        {item?.name || state.title}
+                        {item?.hotel_name || state.title}
                       </Text>
                       <View style={styles.locationContainer}>
                         <Icon
@@ -53,11 +53,11 @@ export default function WishlistScreen({ navigation }) {
                           color={mainColors.grey1}
                         />
                         <Text style={styles.locationTitle}>
-                          {item?.country}, {item?.city}
+                          {item?.country_trans}, {item?.city}
                         </Text>
                       </View>
                     </View>
-                    <Text style={styles.price}>${item?.number_of_rooms}</Text>
+                    <Text style={styles.price}>${item?.min_total_price}</Text>
                   </View>
                   <View style={styles.actionContainer}>
                     <View style={{ alignItems: "center" }}>

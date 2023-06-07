@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import {
   FlatList,
   Image,
+  Pressable,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -79,14 +80,13 @@ const Home = ({ navigation }) => {
             paddingHorizontal: 20,
           }}
         >
-          <View style={styles.searchInput}>
-            {/* <Icon name="search" size={25} color={mainColors.grey1} />
-            <TextInput
-              placeholder="Search address"
-              style={{ paddingLeft: 10 }}
-            /> */}
-            <Search />
-          </View>
+          <Pressable
+            style={styles.searchInput}
+            onPress={() => navigation.navigate("SearchHotel")}
+          >
+            <Icon name="search" size={25} color={mainColors.grey1} />
+            <Text style={{ alignItems: "center" }}>Search Hotel</Text>
+          </Pressable>
         </View>
         <View style={{ paddingTop: 30 }}>
           <Text style={styles.title}>✈️ Cities</Text>
@@ -103,7 +103,7 @@ const Home = ({ navigation }) => {
           <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
-            data={hotel.slice(0, 8)}
+            data={hotel?.slice(0, 8)}
             renderItem={({ item }) => (
               <Card hotel={item} navigation={navigation} />
             )}
@@ -136,15 +136,13 @@ const styles = StyleSheet.create({
     borderRadius: 25,
   },
   searchInput: {
-    // flex: 1,
-    // height: 50,
-    // backgroundColor: mainColors.light2,
-    // flexDirection: "row",
-    // alignItems: "center",
+    flex: 1,
+    height: 50,
+    backgroundColor: mainColors.light2,
+    flexDirection: "row",
+    alignItems: "center",
     paddingHorizontal: 20,
-    marginTop: 100,
-    marginBottom: 100,
-    // borderRadius: 12,
+    borderRadius: 12,
   },
   title: {
     fontSize: 18,

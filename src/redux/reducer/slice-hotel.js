@@ -40,6 +40,7 @@ export const hotelsApi = createApi({
           adults_number,
           children_number,
           room_number,
+          dest_id,
         } = queryParam;
         return {
           url: "hotels/search",
@@ -50,7 +51,7 @@ export const hotelsApi = createApi({
             checkout_date,
             adults_number,
             order_by: "popularity",
-            dest_id: "-2679652",
+            dest_id,
             filter_by_currency: "IDR",
             locale: "id",
             room_number,
@@ -61,6 +62,9 @@ export const hotelsApi = createApi({
     }),
   }),
 });
+
+// destype bali = -2701757
+// destype yogyakarta = -2703546
 
 export const {
   useGetAllHotelsQuery,

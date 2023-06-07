@@ -7,10 +7,11 @@ export const sliceSearch = createSlice({
     dateRangeItem: "",
     checkin: "",
     checkout: "",
-    adult: "1",
-    children: "1",
-    room: "1",
+    adult: 1,
+    children: 0,
+    room: 1,
     data: [],
+    location: -2679652,
   },
   reducers: {
     getSearch: (state, action) => {
@@ -24,16 +25,16 @@ export const sliceSearch = createSlice({
       state.adult = action.payload.adult;
       state.children = action.payload.children;
       state.room = action.payload.room;
+      state.location = action.payload.location;
     },
     getDataSearch: (state, action) => {
       state.data = action.payload;
     },
     getClearSearch: (state) => {
-      state.checkin = "";
-      state.checkout = "";
       state.adult = "";
       state.children = "";
       state.room = "";
+      state.location = "";
     },
   },
 });

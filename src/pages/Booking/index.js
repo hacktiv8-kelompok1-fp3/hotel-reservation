@@ -88,7 +88,7 @@ const Booking = ({ navigation }) => {
     <View style={styles.conatiner}>
       <StatusBar hidden />
       <HeaderBooking
-        title={detailhotel?.name}
+        title={detailhotel?.hotel_name}
         startDate={checkin}
         endDate={checkout}
         onPress={() => navigation.navigate("ContactInformation")}
