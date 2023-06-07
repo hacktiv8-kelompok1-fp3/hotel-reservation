@@ -22,18 +22,20 @@ const Card = ({ hotel, navigation }) => {
     >
       <View style={styles.card}>
         <Image
-          source={require("../../assets/hotel4.jpg")}
+          source={{ uri: hotel.max_photo_url }}
           style={{ height: 120, width: "100%", borderRadius: 10 }}
         />
-        <Text style={styles.cardName}>{hotel.name}</Text>
+        <Text style={styles.cardName}>{hotel.hotel_name}</Text>
         <View style={styles.cardContent}>
-          <Text style={styles.cardPrice}>${hotel.number_of_rooms}</Text>
+          <Text style={styles.cardPrice}>
+            {hotel.currency_code} {hotel.min_total_price}
+          </Text>
           <Text style={styles.cardNight}>/night</Text>
         </View>
         <View style={styles.cardContentLocation}>
           <Icon name="location-on" size={18} color={mainColors.grey1} />
           <Text style={styles.location}>
-            {hotel.country}, {hotel.city}
+            {hotel.country_trans}, {hotel.city_trans}
           </Text>
         </View>
       </View>

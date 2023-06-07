@@ -21,10 +21,12 @@ import {
   useGetAllHotelsQuery,
 } from "../../redux/reducer/slice-hotel";
 import mainColors from "../../utils/colors/index.js";
+import Search from "../../components/Search/index.js";
 const Home = ({ navigation }) => {
-  const { data: hotel } = useGetAllHotelsQuery({ country: "id" });
+  // const { data: hotel } = useGetAllHotelsQuery({ country: "id" });
   const { data: cities } = useGetAllCitiesQuery({ country: "id" });
   const { token } = useSelector((state) => state.authorization);
+  const { data: hotel } = useSelector((state) => state.search);
   const [dataUser, setDataUser] = useState({});
   useEffect(() => {
     if (token) {
@@ -78,11 +80,12 @@ const Home = ({ navigation }) => {
           }}
         >
           <View style={styles.searchInput}>
-            <Icon name="search" size={25} color={mainColors.grey1} />
+            {/* <Icon name="search" size={25} color={mainColors.grey1} />
             <TextInput
               placeholder="Search address"
               style={{ paddingLeft: 10 }}
-            />
+            /> */}
+            <Search />
           </View>
         </View>
         <View style={{ paddingTop: 30 }}>
@@ -100,20 +103,20 @@ const Home = ({ navigation }) => {
           <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
-            data={hotel?.result.slice(0, 8)}
+            data={hotel.slice(0, 8)}
             renderItem={({ item }) => (
               <Card hotel={item} navigation={navigation} />
             )}
           />
           <Text style={styles.title}>Rekomendasi Hotels</Text>
-          <FlatList
+          {/* <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
             data={hotel?.result.slice(0, 8)}
             renderItem={({ item }) => (
               <CardBig hotel={item} navigation={navigation} />
             )}
-          />
+          /> */}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -133,14 +136,15 @@ const styles = StyleSheet.create({
     borderRadius: 25,
   },
   searchInput: {
-    flex: 1,
-    height: 50,
-    backgroundColor: mainColors.light2,
-    flexDirection: "row",
-    alignItems: "center",
+    // flex: 1,
+    // height: 50,
+    // backgroundColor: mainColors.light2,
+    // flexDirection: "row",
+    // alignItems: "center",
     paddingHorizontal: 20,
-    marginTop: 50,
-    borderRadius: 12,
+    marginTop: 100,
+    marginBottom: 100,
+    // borderRadius: 12,
   },
   title: {
     fontSize: 18,

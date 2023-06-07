@@ -17,11 +17,54 @@ export const hotelsApi = createApi({
     getAllHotels: builder.query({
       query: (queryParam) => `static/hotels?country=${queryParam?.country}`,
     }),
+    getDescriptionHotel: builder.query({
+      query: (queryParam) => {
+        const { hotel_id } = queryParam;
+        return {
+          url: "hotels/description",
+          params: {
+            hotel_id,
+            locale: "id",
+          },
+        };
+      },
+    }),
     getAllCities: builder.query({
       query: (queryParam) => `static/cities?country=${queryParam?.country}`,
     }),
-    // getSearch: builder.
+    getSearchAllHotel: builder.query({
+      query: (queryParam) => {
+        const {
+          checkin_date,
+          checkout_date,
+          adults_number,
+          children_number,
+          room_number,
+        } = queryParam;
+        return {
+          url: "hotels/search",
+          params: {
+            checkin_date,
+            dest_type: "city",
+            units: "metric",
+            checkout_date,
+            adults_number,
+            order_by: "popularity",
+            dest_id: "-2679652",
+            filter_by_currency: "IDR",
+            locale: "id",
+            room_number,
+            children_number,
+          },
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetAllHotelsQuery, useGetAllCitiesQuery } = hotelsApi;
+export const {
+  useGetAllHotelsQuery,
+  useGetAllCitiesQuery,
+  useGetSearchAllHotelQuery,
+  useGetDescriptionHotelQuery,
+} = hotelsApi;
