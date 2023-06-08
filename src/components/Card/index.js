@@ -1,16 +1,14 @@
 import React from "react";
 import {
-  View,
-  StyleSheet,
-  Image,
   Dimensions,
-  Text,
+  Image,
   Pressable,
+  StyleSheet,
+  Text,
+  View,
 } from "react-native";
-import { useGetAllHotelsQuery } from "../../redux/reducer/slice-hotel";
-import hotels from "../../const/hotels";
-import mainColors from "../../utils/colors";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import mainColors from "../../utils/colors";
 
 const { width } = Dimensions.get("screen");
 

@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import DatePicker from "react-native-neat-date-picker";
-import { View, StyleSheet, Pressable, Text } from "react-native";
-import Input from "../Input";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getClearSearch,
-  getDataSearch,
-  getGuess,
-  getSearch,
-} from "../../redux/reducer/slice-search";
+import { getGuess, getSearch } from "../../redux/reducer/slice-search";
 import mainColors from "../../utils/colors";
 import { useForm } from "../../utils/useForm";
-import { useGetSearchAllHotelQuery } from "../../redux/reducer/slice-hotel";
+import GuestInputSearch from "../GuestSearch";
+import Input from "../Input";
 
 const Search = ({ navigation }) => {
   const [itemLocation] = useState([
@@ -19,24 +14,13 @@ const Search = ({ navigation }) => {
     { id: 2, label: "Yogyakarta", value: -2703546 },
     { id: 3, label: "Bali", value: -2701757 },
   ]);
-  const { dateRangeItem, checkin, checkout, adult, children, room, location } =
-    useSelector((state) => state.search);
-  const { data } = useGetSearchAllHotelQuery({
-    dest_id: location,
-    checkin_date: checkin,
-    checkout_date: checkout,
-    adults_number: adult,
-    children_number: children,
-    room_number: room,
-  });
-  // console.log("dataHotel", data);
+  const { dateRangeItem, adult, children, room } = useSelector(
+    (state) => state.search
+  );
   const dispatch = useDispatch();
   const [date, setDate] = useState("");
   const [form, setForm] = useForm({
     location: -2679652,
-    adult: 1,
-    children: 1,
-    room: 1,
   });
   const [showDatePicker, setShowDatePicker] = useState(false);
   const openDatePicker = () => setShowDatePicker(true);
@@ -55,19 +39,13 @@ const Search = ({ navigation }) => {
     setDate(dateRangeItem);
   }, [dateRangeItem]);
 
-  useEffect(() => {
-    dispatch(getDataSearch(data?.result));
-  }, [data, dispatch]);
-
   const onCancelRange = () => {
     setShowDatePicker(false);
-    // dispatch(deleteDate(detailhotel));
   };
 
   const handleBooking = () => {
     dispatch(getGuess({ ...form }));
     setForm("reset");
-    // dispatch(getClearSearch());
     navigation.navigate("MainApp");
   };
   return (
@@ -96,18 +74,19 @@ const Search = ({ navigation }) => {
           selectedDateBackgroundColor: mainColors.primary3,
         }}
       />
-      <Input
-        value={form.adult}
-        onChangeText={(value) => setForm("adult", value)}
+      <GuestInputSearch
+        title="Adults"
+        description="Over 17 Years"
+        count={adult}
+        type="adults"
       />
-      <Input
-        value={form.children}
-        onChangeText={(value) => setForm("children", value)}
+      <GuestInputSearch
+        title="Children"
+        description="Under 17 Years"
+        count={children}
+        type="children"
       />
-      <Input
-        value={form.room}
-        onChangeText={(value) => setForm("room", value)}
-      />
+      <GuestInputSearch title="Room" count={room} type="room" />
       <Pressable style={styles.btnLogin} onPress={handleBooking}>
         <Text style={styles.textLoginBtn}>continue to booking</Text>
       </Pressable>

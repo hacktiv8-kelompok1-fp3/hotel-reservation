@@ -1,17 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import {
-  View,
-  StyleSheet,
-  StatusBar,
-  FlatList,
   Dimensions,
+  FlatList,
   SafeAreaView,
-  TouchableOpacity,
+  StatusBar,
+  StyleSheet,
   Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
-import mainColors from "../../utils/colors/index.js";
 import Slide from "../../components/Slide/index.js";
-import { useSelector } from "react-redux";
+import mainColors from "../../utils/colors/index.js";
 const { height, width } = Dimensions.get("screen");
 
 const slides = [
@@ -36,12 +35,6 @@ const slides = [
 ];
 
 const SplashScreen = ({ navigation }) => {
-  // const { token } = useSelector((state) => state.authorization);
-  // useEffect(() => {
-  //   if (token) {
-  //     navigation.replace("MainApp");
-  //   }
-  // }, [token]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const ref = useRef(null);
   const updateCurrentSlideIndex = (e) => {

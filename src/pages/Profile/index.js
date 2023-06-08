@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
-import mainColors from "../../utils/colors";
-import List from "../../components/List";
-import { useDispatch, useSelector } from "react-redux";
-import { removeUsers } from "../../redux/reducer/slice-login";
 import { Base64 } from "js-base64";
+import React, { useEffect, useState } from "react";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
+import { useDispatch, useSelector } from "react-redux";
+import List from "../../components/List";
+import { removeUsers } from "../../redux/reducer/slice-login";
+import mainColors from "../../utils/colors";
 
 const ProfileInfo = () => {
   const { token } = useSelector((state) => state.authorization);
@@ -47,22 +47,32 @@ const Profile = ({ navigation }) => {
   };
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.header}>
-        {/* <TouchableOpacity style={styles.backButton}>
-          <Image source={require('../../assets/icons/arrow-back-8.png')} size={24} color="black" style={styles.backIcon} />
-        </TouchableOpacity> */}
-        <View style={styles.titleContainer}>
-          <Text style={styles.title}>Profile</Text>
-        </View>
-      </View>
-      <ProfileInfo />
-      <View style={{ height: 20 }}></View>
-      <List
-        title="Edit Profile"
-        icon="profile"
-        onPress={() => navigation.navigate("UpdateProfile", dataUser)}
-      />
-      <List title="Logout" icon="logout" onPress={handleLogout} />
+      {!token ? (
+        <>
+          <Pressable onPress={() => navigation.navigate("Login")}>
+            <Text style={styles.title}>Belum Login</Text>
+          </Pressable>
+        </>
+      ) : (
+        <>
+          <View style={styles.header}>
+            {/* <TouchableOpacity style={styles.backButton}>
+            <Image source={require('../../assets/icons/arrow-back-8.png')} size={24} color="black" style={styles.backIcon} />
+          </TouchableOpacity> */}
+            <View style={styles.titleContainer}>
+              <Text style={styles.title}>Profile</Text>
+            </View>
+          </View>
+          <ProfileInfo />
+          <View style={{ height: 20 }}></View>
+          <List
+            title="Edit Profile"
+            icon="profile"
+            onPress={() => navigation.navigate("UpdateProfile", dataUser)}
+          />
+          <List title="Logout" icon="logout" onPress={handleLogout} />
+        </>
+      )}
     </ScrollView>
   );
 };

@@ -10,7 +10,6 @@ export const sliceSearch = createSlice({
     adult: 1,
     children: 0,
     room: 1,
-    data: [],
     location: -2679652,
   },
   reducers: {
@@ -22,23 +21,45 @@ export const sliceSearch = createSlice({
       state.dateRangeItem = `${startDate} - ${endDate}`;
     },
     getGuess: (state, action) => {
-      state.adult = action.payload.adult;
-      state.children = action.payload.children;
-      state.room = action.payload.room;
       state.location = action.payload.location;
     },
-    getDataSearch: (state, action) => {
-      state.data = action.payload;
+    handleAddSearch: (state, action) => {
+      if (action.payload.type === "adults") {
+        state.adult++;
+      }
+      if (action.payload.type === "children") {
+        state.children++;
+      }
+      if (action.payload.type === "room") {
+        state.room++;
+      }
+    },
+    handleDeleteSearch: (state, action) => {
+      if (action.payload.type === "adults") {
+        state.adult--;
+      }
+      if (action.payload.type === "children") {
+        state.children--;
+      }
+      if (action.payload.type === "room") {
+        state.room--;
+      }
     },
     getClearSearch: (state) => {
-      state.adult = "";
-      state.children = "";
-      state.room = "";
-      state.location = "";
+      state.adult = 1;
+      state.children = 0;
+      state.room = 1;
+      state.location = -2679652;
     },
   },
 });
 
-export const { getSearch, getGuess, getClearSearch, getDataSearch } =
-  sliceSearch.actions;
+export const {
+  getSearch,
+  getGuess,
+  getClearSearch,
+  getDataSearch,
+  handleAddSearch,
+  handleDeleteSearch,
+} = sliceSearch.actions;
 export default sliceSearch.reducer;

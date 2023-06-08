@@ -20,6 +20,7 @@ import { useGetDescriptionHotelQuery } from "../../redux/reducer/slice-hotel";
 
 const DetailHotel = ({ navigation, route }) => {
   const hotel = route.params;
+  const { token } = useSelector((state) => state.authorization);
   const { data } = useGetDescriptionHotelQuery({ hotel_id: hotel.hotel_id });
   const { favorites } = useSelector((state) => state.favorite);
   const isFavorite = favorites.find((item) => item.hotel_id === hotel.hotel_id);
@@ -29,7 +30,11 @@ const DetailHotel = ({ navigation, route }) => {
     navigation.navigate("ContactInformation");
   };
   const handleFavoriteClick = () => {
-    dispatch(addFavorites(hotel));
+    if (!token) {
+      navigation.navigate("Login");
+    } else {
+      dispatch(addFavorites(hotel));
+    }
   };
 
   const handleUnFavoriteClick = () => {

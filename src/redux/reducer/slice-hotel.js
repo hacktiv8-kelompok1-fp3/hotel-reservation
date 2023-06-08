@@ -7,7 +7,7 @@ export const hotelsApi = createApi({
     prepareHeaders: (headers) => {
       headers.set(
         "X-RapidAPI-Key",
-        "cdcada9048msh3b9d11a13206dcbp175087jsn42d586bfae30"
+        "1d5d921ef5mshda17a1e4b15a025p11409bjsnbf4f9cf29488"
       );
       headers.set("X-RapidAPI-Host", "booking-com.p.rapidapi.com");
       return headers;

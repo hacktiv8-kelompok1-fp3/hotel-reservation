@@ -9,25 +9,33 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   View,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Card from "../../components/Card/index.js";
-import CardBig from "../../components/CardBig/index.js";
 import SmallCard from "../../components/SmallCard/index.js";
 import {
   useGetAllCitiesQuery,
-  useGetAllHotelsQuery,
+  useGetSearchAllHotelQuery,
 } from "../../redux/reducer/slice-hotel";
+import { getClearSearch } from "../../redux/reducer/slice-search.js";
 import mainColors from "../../utils/colors/index.js";
-import Search from "../../components/Search/index.js";
 const Home = ({ navigation }) => {
-  // const { data: hotel } = useGetAllHotelsQuery({ country: "id" });
+  const dispatch = useDispatch();
+  const { checkin, checkout, adult, children, room, location } = useSelector(
+    (state) => state.search
+  );
   const { data: cities } = useGetAllCitiesQuery({ country: "id" });
   const { token } = useSelector((state) => state.authorization);
-  const { data: hotel } = useSelector((state) => state.search);
+  const { data: hotel } = useGetSearchAllHotelQuery({
+    dest_id: location,
+    checkin_date: checkin,
+    checkout_date: checkout,
+    adults_number: adult,
+    children_number: children,
+    room_number: room,
+  });
   const [dataUser, setDataUser] = useState({});
   useEffect(() => {
     if (token) {
@@ -35,6 +43,10 @@ const Home = ({ navigation }) => {
       setDataUser(parse);
     }
   }, [token]);
+  const handleSearch = () => {
+    navigation.navigate("SearchHotel");
+    dispatch(getClearSearch());
+  };
   return (
     <SafeAreaView style={{ backgroundColor: mainColors.white, flex: 1 }}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -80,10 +92,7 @@ const Home = ({ navigation }) => {
             paddingHorizontal: 20,
           }}
         >
-          <Pressable
-            style={styles.searchInput}
-            onPress={() => navigation.navigate("SearchHotel")}
-          >
+          <Pressable style={styles.searchInput} onPress={handleSearch}>
             <Icon name="search" size={25} color={mainColors.grey1} />
             <Text style={{ alignItems: "center" }}>Search Hotel</Text>
           </Pressable>
@@ -103,7 +112,7 @@ const Home = ({ navigation }) => {
           <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
-            data={hotel?.slice(0, 8)}
+            data={hotel?.result?.slice(0, 8)}
             renderItem={({ item }) => (
               <Card hotel={item} navigation={navigation} />
             )}

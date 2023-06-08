@@ -1,6 +1,5 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback } from "react";
 import {
-  ImageBackground,
   ScrollView,
   StatusBar,
   StyleSheet,
@@ -16,7 +15,6 @@ import {
   addBookingDate,
   clearBooking,
   deleteDate,
-  handleAdd,
 } from "../../redux/reducer/slice-bookingData";
 import { addHistoryCheckout } from "../../redux/reducer/slice-historyCheckout";
 import mainColors from "../../utils/colors";
