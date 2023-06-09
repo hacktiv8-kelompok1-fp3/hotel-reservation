@@ -38,17 +38,17 @@ const OrderDetail = ({ navigation, route }) => {
       <View style={styles.count3}>
         <View style={styles.detailHotel}>
           <Image
-            source={require("../../assets/hotel3.jpg")}
+            source={{ uri: item.hotel.max_photo_url }}
             style={{ width: 70, height: 70, borderRadius: 10 }}
           />
           <View style={{ justifyContent: "center", marginLeft: 20 }}>
             <Text style={{ color: mainColors.primary2 }}>
-              {item.hotel.name}
+              {item.hotel.hotel_name}
             </Text>
             <Text
               style={{ marginTop: 3, fontSize: 12, color: mainColors.grey1 }}
             >
-              Superior Twin Bed
+              {item?.hotel?.accommodation_type_name}
             </Text>
           </View>
         </View>

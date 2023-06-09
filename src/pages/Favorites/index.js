@@ -11,7 +11,7 @@ import {
 import Icon from "react-native-vector-icons/MaterialIcons";
 
 import { useDispatch, useSelector } from "react-redux";
-import BookButton from "../../components/Button";
+import BookButton from "../../components/BookButton";
 import { removeFavorites } from "../../redux/reducer/slice-favorites";
 import mainColors from "../../utils/colors";
 
@@ -35,17 +35,15 @@ export default function WishlistScreen({ navigation }) {
               <View style={styles.listContainer} key={item?.hotel_id}>
                 <View style={styles.cardContainer}>
                   <Image
-                    source={require("../../assets/hotel4.jpg")}
+                    source={{ uri: item?.max_photo_url }}
                     style={styles.imageStyle}
                   />
                   <View style={styles.cardInfoContainer}>
                     <Text style={styles.cardCategory}>
-                      {"HOTEL" || state.category}
+                      {item?.accommodation_type_name}
                     </Text>
                     <View style={styles.titleLocationContainer}>
-                      <Text style={styles.cardTitle}>
-                        {item?.name || state.title}
-                      </Text>
+                      <Text style={styles.cardTitle}>{item?.hotel_name}</Text>
                       <View style={styles.locationContainer}>
                         <Icon
                           name="location-on"
@@ -53,11 +51,11 @@ export default function WishlistScreen({ navigation }) {
                           color={mainColors.grey1}
                         />
                         <Text style={styles.locationTitle}>
-                          {item?.country}, {item?.city}
+                          {item?.country_trans}, {item?.city}
                         </Text>
                       </View>
                     </View>
-                    <Text style={styles.price}>${item?.number_of_rooms}</Text>
+                    <Text style={styles.price}>${item?.min_total_price}</Text>
                   </View>
                   <View style={styles.actionContainer}>
                     <View style={{ alignItems: "center" }}>
@@ -120,12 +118,12 @@ const styles = StyleSheet.create({
     textAlign: "center",
     letterSpacing: 4,
   },
-
   //Card
   cardContainer: {
     backgroundColor: "white",
     flexDirection: "row",
-    height: 120,
+    minHeight: 140,
+    // height: 120,
     marginTop: 10,
     borderRadius: 15,
     padding: 5,
@@ -171,14 +169,12 @@ const styles = StyleSheet.create({
   price: {
     color: mainColors.primary2,
     fontWeight: "bold",
-    // paddingLeft: 5,
     marginTop: 3,
   },
 
   // button-style
   actionContainer: {
     padding: 10,
-    // alignItems: "flex-end",
     justifyContent: "space-between",
   },
 

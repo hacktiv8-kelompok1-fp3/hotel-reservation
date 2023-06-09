@@ -3,7 +3,7 @@ import mainColors from "../../utils/colors";
 import { addDetailHotel } from "../../redux/reducer/slice-bookingData";
 import { useDispatch } from "react-redux";
 
-export default function Button({ children, navigation, data }) {
+export default function BookButton({ children, navigation, data }) {
   const dispatch = useDispatch();
   const handleClick = () => {
     dispatch(addDetailHotel(data));
@@ -11,8 +11,8 @@ export default function Button({ children, navigation, data }) {
   };
   return (
     <Pressable onPress={handleClick}>
-      <View>
-        <Text style={styles.container}>{children}</Text>
+      <View style={styles.container}>
+        <Text style={styles.text}>{children}</Text>
       </View>
     </Pressable>
   );
@@ -24,6 +24,8 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 15,
     borderRadius: 10,
+  },
+  text: {
     color: "white",
     fontWeight: "bold",
   },

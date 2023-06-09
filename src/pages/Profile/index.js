@@ -1,11 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
-import mainColors from "../../utils/colors";
-import List from "../../components/List";
-import { useDispatch, useSelector } from "react-redux";
-import { removeUsers } from "../../redux/reducer/slice-login";
 import { Base64 } from "js-base64";
+import React, { useEffect, useState } from "react";
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+} from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
+import { useDispatch, useSelector } from "react-redux";
+import List from "../../components/List";
+import { removeUsers } from "../../redux/reducer/slice-login";
+import mainColors from "../../utils/colors";
+const { width } = Dimensions.get("screen");
+const { height } = Dimensions.get("screen");
 
 const ProfileInfo = () => {
   const { token } = useSelector((state) => state.authorization);
@@ -47,22 +56,50 @@ const Profile = ({ navigation }) => {
   };
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.header}>
-        {/* <TouchableOpacity style={styles.backButton}>
-          <Image source={require('../../assets/icons/arrow-back-8.png')} size={24} color="black" style={styles.backIcon} />
-        </TouchableOpacity> */}
-        <View style={styles.titleContainer}>
-          <Text style={styles.title}>Profile</Text>
-        </View>
-      </View>
-      <ProfileInfo />
-      <View style={{ height: 20 }}></View>
-      <List
-        title="Edit Profile"
-        icon="profile"
-        onPress={() => navigation.navigate("UpdateProfile", dataUser)}
-      />
-      <List title="Logout" icon="logout" onPress={handleLogout} />
+      {!token ? (
+        <>
+          <View style={styles.informationContainer}>
+            <View style={styles.infoTextContainer}>
+              <Text style={styles.infoText}>
+                oh no we don't know who you are let's login to start
+              </Text>
+            </View>
+
+            <Image
+              source={require("../../assets/who.png")}
+              style={{
+                resizeMode: "contain",
+                width: width,
+                height: height / 2,
+              }}
+            />
+            <Pressable onPress={() => navigation.navigate("Login")}>
+              <View style={styles.btnLogin}>
+                <Text style={styles.title}>Login</Text>
+              </View>
+            </Pressable>
+          </View>
+        </>
+      ) : (
+        <>
+          <View style={styles.header}>
+            {/* <TouchableOpacity style={styles.backButton}>
+            <Image source={require('../../assets/icons/arrow-back-8.png')} size={24} color="black" style={styles.backIcon} />
+          </TouchableOpacity> */}
+            <View style={styles.titleContainer}>
+              <Text style={styles.title}>Profile</Text>
+            </View>
+          </View>
+          <ProfileInfo />
+          <View style={{ height: 20 }}></View>
+          <List
+            title="Edit Profile"
+            icon="profile"
+            onPress={() => navigation.navigate("UpdateProfile", dataUser)}
+          />
+          <List title="Logout" icon="logout" onPress={handleLogout} />
+        </>
+      )}
     </ScrollView>
   );
 };
@@ -116,11 +153,42 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 10,
   },
-  title: {
+  infoTextContainer: {
+    width: width / 1.5,
+    // flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  infoText: {
+    // flexShrink: false,
+    marginTop: 40,
     fontSize: 20,
     fontWeight: "bold",
     textAlign: "center",
     color: mainColors.primary2,
+    // flex: 1,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "bold",
+    textAlign: "center",
+    color: mainColors.white,
+  },
+  informationContainer: {
+    justifyContent: "space-between",
+    alignItems: "center",
+    // height: "100%",
+    // flex: 1,
+
+    height: height / 1.3,
+  },
+  btnLogin: {
+    backgroundColor: mainColors.primary2,
+    width: width / 3,
+    height: 40,
+    borderRadius: 15,
+    elevation: 5,
+    paddingVertical: 5,
   },
 });
 

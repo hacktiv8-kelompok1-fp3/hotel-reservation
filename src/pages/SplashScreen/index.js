@@ -101,7 +101,7 @@ const SplashScreen = ({ navigation }) => {
             <View style={{ height: 50 }}>
               <TouchableOpacity
                 style={styles.btn}
-                onPress={() => navigation.navigate("Login")}
+                onPress={() => navigation.navigate("MainApp")}
               >
                 <Text
                   style={{

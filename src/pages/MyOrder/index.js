@@ -50,11 +50,15 @@ const MyOrder = ({ navigation }) => {
               <View style={styles.containerDesc}>
                 <Image
                   style={styles.image}
-                  source={require("../../assets/hotel4.jpg")}
+                  source={{ uri: item?.hotel.max_photo_url }}
                 />
                 <View style={{ marginLeft: 20, justifyContent: "center" }}>
-                  <Text style={styles.titleCard}>{item?.hotel?.name}</Text>
-                  <Text style={styles.categoryCard}>SUPERIOR TWIN BED</Text>
+                  <Text style={styles.titleCard}>
+                    {item?.hotel?.hotel_name}
+                  </Text>
+                  <Text style={styles.categoryCard}>
+                    {item?.hotel?.accommodation_type_name}
+                  </Text>
                 </View>
               </View>
               <View style={styles.conatinerPrice}>

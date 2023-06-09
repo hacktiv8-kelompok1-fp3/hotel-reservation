@@ -17,7 +17,7 @@ const sliceBookingData = createSlice({
   reducers: {
     addDetailHotel: (state, action) => {
       state.detailhotel = action.payload;
-      state.totalBooking = action.payload.number_of_rooms;
+      state.totalBooking = action.payload.min_total_price;
     },
     addContactInformation: (state, action) => {
       const item = action.payload;
@@ -43,7 +43,7 @@ const sliceBookingData = createSlice({
     deleteDate: (state, action) => {
       state.checkin = "";
       state.checkout = "";
-      state.totalBooking = action.payload.number_of_rooms;
+      state.totalBooking = action.payload.min_total_price;
     },
     handleAdd: (state, action) => {
       if (action.payload.type === "adults") {
