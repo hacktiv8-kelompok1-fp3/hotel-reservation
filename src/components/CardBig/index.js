@@ -54,7 +54,6 @@ const CardBig = ({ hotel, navigation }) => {
             </View>
           </View>
           <View style={styles.cardContentLocation}>
-            {/* <Icon name="location-on" size={18} color={mainColors.grey1} /> */}
             <Text style={styles.location}>
               {hotel.country}, {hotel.city}
             </Text>
