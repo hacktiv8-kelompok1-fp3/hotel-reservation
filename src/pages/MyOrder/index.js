@@ -63,7 +63,7 @@ const MyOrder = ({ navigation }) => {
               </View>
               <View style={styles.conatinerPrice}>
                 <Text style={styles.priceDetails}>Price Details</Text>
-                <Text style={styles.priceCard}>${item?.totalBooking}</Text>
+                <Text style={styles.priceCard}>IDR{item?.totalBooking}</Text>
               </View>
               <Pressable
                 onPress={() => navigation.navigate("OrderDetail", item)}

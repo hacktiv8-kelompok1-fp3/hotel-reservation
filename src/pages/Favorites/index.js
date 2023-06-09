@@ -55,7 +55,7 @@ export default function WishlistScreen({ navigation }) {
                         </Text>
                       </View>
                     </View>
-                    <Text style={styles.price}>${item?.min_total_price}</Text>
+                    <Text style={styles.price}>IDR{item?.min_total_price}</Text>
                   </View>
                   <View style={styles.actionContainer}>
                     <View style={{ alignItems: "center" }}>

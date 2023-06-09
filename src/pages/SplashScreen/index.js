@@ -1,40 +1,44 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
-  Dimensions,
-  FlatList,
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
   View,
+  StyleSheet,
+  StatusBar,
+  FlatList,
+  Dimensions,
+  SafeAreaView,
+  TouchableOpacity,
+  Text,
 } from "react-native";
-import Slide from "../../components/Slide/index.js";
 import mainColors from "../../utils/colors/index.js";
+import Slide from "../../components/Slide/index.js";
+import { useSelector } from "react-redux";
 const { height, width } = Dimensions.get("screen");
 
 const slides = [
   {
     id: "1",
-    image: require("../../assets/image1.png"),
-    title: "Best Digital Solution",
-    subtitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    image: require("../../assets/img1.jpeg"),
+    title: "let's start our journey",
   },
   {
     id: "2",
-    image: require("../../assets/image2.png"),
-    title: "Achieve Your Goals",
-    subtitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    image: require("../../assets/img2.jpeg"),
+    title: "Make your stay memorable",
   },
   {
     id: "3",
-    image: require("../../assets/image3.png"),
-    title: "Increase Your Value",
-    subtitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    image: require("../../assets/img3.jpeg"),
+    title: "Where the world comes to stay",
   },
 ];
 
 const SplashScreen = ({ navigation }) => {
+  const { token } = useSelector((state) => state.authorization);
+  useEffect(() => {
+    if (token) {
+      navigation.replace("MainApp");
+    }
+  }, [token]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const ref = useRef(null);
   const updateCurrentSlideIndex = (e) => {
