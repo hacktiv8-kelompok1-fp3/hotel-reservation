@@ -60,9 +60,6 @@ export const hotelsApi = createApi({
         };
       },
     }),
-    getAllCities: builder.query({
-      query: () => "static/cities",
-    }),
   }),
 });
 

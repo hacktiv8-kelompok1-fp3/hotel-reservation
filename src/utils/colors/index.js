@@ -9,6 +9,7 @@ const mainColors = {
   light2: "#f1f4ff",
   grey1: "#908e8c",
   grey2: "#626262",
+  grey3: "#D1D9E4",
   orange: "#f5a623",
   pink: "#FF3366",
 

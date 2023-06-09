@@ -11,7 +11,7 @@ import {
 import Icon from "react-native-vector-icons/MaterialIcons";
 
 import { useDispatch, useSelector } from "react-redux";
-import BookButton from "../../components/Button";
+import BookButton from "../../components/BookButton";
 import { removeFavorites } from "../../redux/reducer/slice-favorites";
 import mainColors from "../../utils/colors";
 
@@ -43,9 +43,7 @@ export default function WishlistScreen({ navigation }) {
                       {item?.accommodation_type_name}
                     </Text>
                     <View style={styles.titleLocationContainer}>
-                      <Text style={styles.cardTitle}>
-                        {item?.hotel_name || state.title}
-                      </Text>
+                      <Text style={styles.cardTitle}>{item?.hotel_name}</Text>
                       <View style={styles.locationContainer}>
                         <Icon
                           name="location-on"
@@ -120,19 +118,12 @@ const styles = StyleSheet.create({
     textAlign: "center",
     letterSpacing: 4,
   },
-  // listCard
-  listContainer: {
-    // width: "100%",
-    // backgroundColor: "#D2D2D2",
-    // height: "100%",
-    // alignItems: "center",
-    // paddingHorizontal: 20,
-  },
   //Card
   cardContainer: {
     backgroundColor: "white",
     flexDirection: "row",
-    height: 120,
+    minHeight: 140,
+    // height: 120,
     marginTop: 10,
     borderRadius: 15,
     padding: 5,
@@ -176,14 +167,12 @@ const styles = StyleSheet.create({
   price: {
     color: mainColors.primary2,
     fontWeight: "bold",
-    // paddingLeft: 5,
     marginTop: 3,
   },
 
   // button-style
   actionContainer: {
     padding: 10,
-    // alignItems: "flex-end",
     justifyContent: "space-between",
   },
 

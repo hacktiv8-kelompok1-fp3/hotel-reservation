@@ -7,6 +7,8 @@ import mainColors from "../../utils/colors";
 import { useForm } from "../../utils/useForm";
 import GuestInputSearch from "../GuestSearch";
 import Input from "../Input";
+import { AntDesign } from "@expo/vector-icons";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 const Search = ({ navigation }) => {
   const [itemLocation] = useState([
@@ -49,16 +51,27 @@ const Search = ({ navigation }) => {
     navigation.navigate("MainApp");
   };
   return (
-    <View style={styles.container}>
-      <Input
-        value={form.location}
-        select
-        selectItem={itemLocation}
-        onValueChange={(value) => setForm("location", value)}
-      />
-      <Pressable style={styles.inputDate} onPress={openDatePicker}>
-        <Text>{date}</Text>
-      </Pressable>
+    <View style={styles.mainContainer}>
+      <View style={styles.header}>
+        <Text style={styles.title}>Search</Text>
+      </View>
+      <View>
+        <Text>Location : </Text>
+        <Input
+          value={form.location}
+          select
+          selectItem={itemLocation}
+          onValueChange={(value) => setForm("location", value)}
+        />
+      </View>
+
+      <View style={styles.inputDateContainer}>
+        <Text>Date : </Text>
+        <Pressable style={styles.inputDate} onPress={openDatePicker}>
+          <Text>{date}</Text>
+          <AntDesign name="calendar" size={24} color={mainColors.primary2} />
+        </Pressable>
+      </View>
       <DatePicker
         mode="range"
         modalStyles={styles.modalRange}
@@ -86,19 +99,46 @@ const Search = ({ navigation }) => {
         count={children}
         type="children"
       />
+
       <GuestInputSearch title="Room" count={room} type="room" />
-      <Pressable style={styles.btnLogin} onPress={handleBooking}>
-        <Text style={styles.textLoginBtn}>continue to booking</Text>
+
+      <Pressable style={styles.btnSearch} onPress={handleBooking}>
+        <View>
+          <Icon name="search" size={25} color={mainColors.grey1} />
+          {/* <Text style={styles.textSearchBtn}>Search</Text> */}
+        </View>
       </Pressable>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  header: {
+    marginVertical: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 20,
+
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  title: {
+    borderBottomColor: mainColors.primary,
+    borderBottomWidth: 2,
+    fontSize: 20,
+    color: mainColors.primary,
+    fontWeight: "bold",
+  },
+  mainContainer: {
     backgroundColor: "#fff",
-    paddingVertical: 20,
+    // paddingTop: 10,
+    paddingBottom: 30,
     paddingHorizontal: 30,
+    height: "100%",
+    justifyContent: "space-between",
+  },
+  inputDateContainer: {
+    marginVertical: 20,
   },
   modalRange: {
     marginTop: -50,
@@ -107,13 +147,33 @@ const styles = StyleSheet.create({
   inputDate: {
     borderWidth: 1,
     borderRadius: 10,
+    // maxHeight: 55,
     height: 55,
     backgroundColor: mainColors.light2,
     paddingHorizontal: 20,
     justifyContent: "center",
     borderRadius: 10,
-    marginTop: 30,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
+  btnSearch: {
+    backgroundColor: mainColors.primary2,
+    paddingVertical: 8,
+    paddingHorizontal: 15,
+    borderRadius: 10,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    elevation: 10,
+  },
+  // textSearchBtn: {
+  //   textAlign: "center",
+  //   color: "white",
+  //   fontWeight: "bold",
+
+  //   fontSize: 20,
+  // },
 });
 
 export default Search;

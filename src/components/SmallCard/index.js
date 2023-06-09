@@ -20,12 +20,12 @@ const styles = StyleSheet.create({
   smallCardContainer: {
     backgroundColor: mainColors.white,
     elevation: 10,
-    width: width / 3,
+    width: width / 4,
     marginLeft: 20,
     marginTop: 10,
   },
   Image: {
-    height: 120,
+    height: 80,
     width: "100%",
     borderRadius: 10,
     resizeMode: "contain",
@@ -37,8 +37,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     left: 0,
     right: 0,
-    letterSpacing: 4,
+    letterSpacing: 2,
     textAlign: "center",
+    // fontSize: ,
   },
 });
 export default SmallCard;

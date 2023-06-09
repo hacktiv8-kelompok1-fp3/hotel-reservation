@@ -21,6 +21,8 @@ import {
 } from "../../redux/reducer/slice-hotel";
 import { getClearSearch } from "../../redux/reducer/slice-search.js";
 import mainColors from "../../utils/colors/index.js";
+import CardBig from "../../components/CardBig";
+
 const Home = ({ navigation }) => {
   const dispatch = useDispatch();
   const { checkin, checkout, adult, children, room, location } = useSelector(
@@ -37,6 +39,7 @@ const Home = ({ navigation }) => {
     room_number: room,
   });
   const [dataUser, setDataUser] = useState({});
+
   useEffect(() => {
     if (token) {
       const parse = JSON.parse(Base64.decode(token));
@@ -52,15 +55,44 @@ const Home = ({ navigation }) => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <StatusBar
           translucent={false}
-          backgroundColor={mainColors.white}
+          backgfroundColor={mainColors.white}
           barStyle="dark-content"
         />
         {!token ? (
-          <></>
-        ) : (
           <View style={styles.header}>
             <Image
               source={require("../../assets/defaultUser.png")}
+              style={styles.profileImage}
+            />
+            <View
+              style={{
+                paddingLeft: 15,
+                height: 50,
+                justifyContent: "space-between",
+              }}
+            >
+              <View
+                style={{
+                  height: 20,
+                  width: 80,
+                  backgroundColor: mainColors.grey3,
+                  borderRadius: 15,
+                }}
+              ></View>
+              <View
+                style={{
+                  height: 20,
+                  width: 120,
+                  backgroundColor: mainColors.grey3,
+                  borderRadius: 15,
+                }}
+              ></View>
+            </View>
+          </View>
+        ) : (
+          <View style={styles.header}>
+            <Image
+              source={require("../../assets/man-avatar.png")}
               style={styles.profileImage}
             />
             <View style={{ paddingLeft: 15 }}>
@@ -85,19 +117,7 @@ const Home = ({ navigation }) => {
           </View>
         )}
 
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            paddingHorizontal: 20,
-          }}
-        >
-          <Pressable style={styles.searchInput} onPress={handleSearch}>
-            <Icon name="search" size={25} color={mainColors.grey1} />
-            <Text style={{ alignItems: "center" }}>Search Hotel</Text>
-          </Pressable>
-        </View>
-        <View style={{ paddingTop: 30 }}>
+        <View>
           <Text style={styles.title}>✈️ Cities</Text>
           <FlatList
             horizontal
@@ -106,9 +126,25 @@ const Home = ({ navigation }) => {
             renderItem={({ item }) => <SmallCard locationName={item} />}
           />
         </View>
-        <View style={{ paddingVertical: 30 }}>
-          <Text style={styles.title}>Top Hotels</Text>
+        {/*  */}
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            paddingHorizontal: 20,
+            paddingTop: 20,
+            elevation: 10,
+          }}
+        >
+          <Pressable style={styles.searchInput} onPress={handleSearch}>
+            <Icon name="search" size={25} color={mainColors.grey1} />
+            <Text style={{ alignItems: "center" }}>Search Hotel</Text>
+          </Pressable>
+        </View>
+        {/*  */}
 
+        <View style={{ paddingVertical: 30 }}>
+          <Text style={styles.title}>⭐ Top Hotels</Text>
           <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -117,15 +153,15 @@ const Home = ({ navigation }) => {
               <Card hotel={item} navigation={navigation} />
             )}
           />
-          <Text style={styles.title}>Rekomendasi Hotels</Text>
-          {/* <FlatList
+          <Text style={styles.title}>👍🏼Recommendation Hotels</Text>
+          <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
             data={hotel?.result.slice(0, 8)}
             renderItem={({ item }) => (
               <CardBig hotel={item} navigation={navigation} />
             )}
-          /> */}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>

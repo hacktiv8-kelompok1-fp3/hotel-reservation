@@ -80,7 +80,8 @@ const DetailHotel = ({ navigation, route }) => {
           )}
         </View>
       </ImageBackground>
-      <View>
+
+      <View style={{ flex: 1 }}>
         <View style={styles.iconContainer}>
           <Icon name="place" color={mainColors.white} size={28} />
         </View>
@@ -100,6 +101,7 @@ const DetailHotel = ({ navigation, route }) => {
           </View>
           <Text style={styles.description}>{data?.description}</Text>
         </View>
+
         <View style={styles.containerBooking}>
           <View style={styles.booking}>
             <Text style={{ fontSize: 18, color: mainColors.white }}>
@@ -130,6 +132,7 @@ const DetailHotel = ({ navigation, route }) => {
 
 const styles = StyleSheet.create({
   headerImage: {
+    // justifyContent: "start",
     height: 400,
     borderBottomRightRadius: 40,
     borderBottomLeftRadius: 40,
@@ -164,7 +167,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   header: {
-    marginTop: 60,
+    marginTop: 40,
     flexDirection: "row",
     alignItems: "center",
     marginHorizontal: 20,
@@ -204,6 +207,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: 70,
     marginTop: 40,
+    // marginBottom: ,
     backgroundColor: mainColors.primary3,
     paddingHorizontal: 20,
     borderTopLeftRadius: 15,
