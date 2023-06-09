@@ -1,50 +1,40 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import {
-  View,
-  StyleSheet,
-  StatusBar,
-  FlatList,
   Dimensions,
+  FlatList,
   SafeAreaView,
-  TouchableOpacity,
+  StatusBar,
+  StyleSheet,
   Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
-import mainColors from "../../utils/colors/index.js";
 import Slide from "../../components/Slide/index.js";
-import { useSelector } from "react-redux";
+import mainColors from "../../utils/colors/index.js";
 const { height, width } = Dimensions.get("screen");
 
 const slides = [
   {
     id: "1",
-    image: require("../../assets/img1.jpeg"), //image1.png
-    title: "let's start our journey",
-    // subtitle:
-    //   "This holiday season, make the most of every moment with us. Take pleasure in the perfect escape.",
+    image: require("../../assets/image1.png"),
+    title: "Best Digital Solution",
+    subtitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   },
   {
     id: "2",
-    image: require("../../assets/img2.jpeg"), //image2.png
-    title: "Make your stay memorable",
-    // subtitle:
-    //   "Make the best of your vacations by getting enough rest and relaxation.",
+    image: require("../../assets/image2.png"),
+    title: "Achieve Your Goals",
+    subtitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   },
   {
     id: "3",
-    image: require("../../assets/img3.jpeg"), //image3.png
-    title: "Where the world comes to stay",
-    // subtitle:
-    //   " If you are looking for where to go and how to do it,then our hotel is the right spot for you.",
+    image: require("../../assets/image3.png"),
+    title: "Increase Your Value",
+    subtitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   },
 ];
 
 const SplashScreen = ({ navigation }) => {
-  const { token } = useSelector((state) => state.authorization);
-  useEffect(() => {
-    if (token) {
-      navigation.replace("MainApp");
-    }
-  }, [token]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const ref = useRef(null);
   const updateCurrentSlideIndex = (e) => {
@@ -101,7 +91,7 @@ const SplashScreen = ({ navigation }) => {
             <View style={{ height: 50 }}>
               <TouchableOpacity
                 style={styles.btn}
-                onPress={() => navigation.navigate("Login")}
+                onPress={() => navigation.navigate("MainApp")}
               >
                 <Text
                   style={{

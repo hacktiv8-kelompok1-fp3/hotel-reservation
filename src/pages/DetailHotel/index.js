@@ -16,9 +16,12 @@ import {
   addFavorites,
   removeFavorites,
 } from "../../redux/reducer/slice-favorites";
+import { useGetDescriptionHotelQuery } from "../../redux/reducer/slice-hotel";
 
 const DetailHotel = ({ navigation, route }) => {
   const hotel = route.params;
+  const { token } = useSelector((state) => state.authorization);
+  const { data } = useGetDescriptionHotelQuery({ hotel_id: hotel.hotel_id });
   const { favorites } = useSelector((state) => state.favorite);
   const isFavorite = favorites.find((item) => item.hotel_id === hotel.hotel_id);
   const dispatch = useDispatch();
@@ -27,7 +30,11 @@ const DetailHotel = ({ navigation, route }) => {
     navigation.navigate("ContactInformation");
   };
   const handleFavoriteClick = () => {
-    dispatch(addFavorites(hotel));
+    if (!token) {
+      navigation.navigate("Login");
+    } else {
+      dispatch(addFavorites(hotel));
+    }
   };
 
   const handleUnFavoriteClick = () => {
@@ -47,7 +54,7 @@ const DetailHotel = ({ navigation, route }) => {
       />
       <ImageBackground
         style={styles.headerImage}
-        source={require("../../assets/hotel4.jpg")}
+        source={{ uri: hotel.max_photo_url }}
       >
         <View style={styles.header}>
           <Icon
@@ -78,25 +85,25 @@ const DetailHotel = ({ navigation, route }) => {
           <Icon name="place" color={mainColors.white} size={28} />
         </View>
         <View style={styles.containerDetail}>
-          <Text style={styles.title}>{hotel.name}</Text>
+          <Text style={styles.title}>{hotel.hotel_name}</Text>
           <Text style={styles.location}>
-            {hotel.city}, {hotel.address}
+            {hotel.city_trans}, {hotel.address}
           </Text>
           <View style={styles.containerReview}>
             <View style={{ flexDirection: "row" }}>
               <Icon name="star" size={20} color={mainColors.orange} />
               <Icon name="star" size={20} color={mainColors.orange} />
               <Icon name="star" size={20} color={mainColors.orange} />
-              <Text style={styles.countRating}>3.0</Text>
+              <Text style={styles.countRating}>{hotel.review_score}</Text>
             </View>
-            <Text style={styles.reviews}>365reviews</Text>
+            <Text style={styles.reviews}>{hotel.review_nr}reviews</Text>
           </View>
-          <Text style={styles.description}>{hotel.hotel_description}</Text>
+          <Text style={styles.description}>{data?.description}</Text>
         </View>
         <View style={styles.containerBooking}>
           <View style={styles.booking}>
             <Text style={{ fontSize: 18, color: mainColors.white }}>
-              ${hotel.number_of_rooms}
+              {hotel.currencycode} {hotel.min_total_price}
             </Text>
             <Text
               style={{ fontSize: 12, color: mainColors.white, marginLeft: 5 }}

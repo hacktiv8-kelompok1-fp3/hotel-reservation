@@ -6,6 +6,7 @@ import favoritesReducers from "../reducer/slice-favorites";
 import { hotelsApi } from "../reducer/slice-hotel";
 import historyCheckoutReducers from "../reducer/slice-historyCheckout";
 import AuthorizationReducers from "../reducer/slice-login";
+import searchReducers from "../reducer/slice-search";
 
 const persistConfig = {
   key: "root",
@@ -15,6 +16,7 @@ const persistConfig = {
 
 const rootReducers = combineReducers({
   bookingData: bookingDataReducers,
+  search: searchReducers,
   favorite: favoritesReducers,
   historycheckout: historyCheckoutReducers,
   authorization: AuthorizationReducers,

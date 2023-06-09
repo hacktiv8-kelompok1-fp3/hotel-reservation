@@ -7,7 +7,7 @@ export const hotelsApi = createApi({
     prepareHeaders: (headers) => {
       headers.set(
         "X-RapidAPI-Key",
-        "cdcada9048msh3b9d11a13206dcbp175087jsn42d586bfae30"
+        "1d5d921ef5mshda17a1e4b15a025p11409bjsnbf4f9cf29488"
       );
       headers.set("X-RapidAPI-Host", "booking-com.p.rapidapi.com");
       return headers;
@@ -15,7 +15,50 @@ export const hotelsApi = createApi({
   }),
   endpoints: (builder) => ({
     getAllHotels: builder.query({
-      query: () => "static/hotels",
+      query: (queryParam) => `static/hotels?country=${queryParam?.country}`,
+    }),
+    getDescriptionHotel: builder.query({
+      query: (queryParam) => {
+        const { hotel_id } = queryParam;
+        return {
+          url: "hotels/description",
+          params: {
+            hotel_id,
+            locale: "id",
+          },
+        };
+      },
+    }),
+    getAllCities: builder.query({
+      query: (queryParam) => `static/cities?country=${queryParam?.country}`,
+    }),
+    getSearchAllHotel: builder.query({
+      query: (queryParam) => {
+        const {
+          checkin_date,
+          checkout_date,
+          adults_number,
+          children_number,
+          room_number,
+          dest_id,
+        } = queryParam;
+        return {
+          url: "hotels/search",
+          params: {
+            checkin_date,
+            dest_type: "city",
+            units: "metric",
+            checkout_date,
+            adults_number,
+            order_by: "popularity",
+            dest_id,
+            filter_by_currency: "IDR",
+            locale: "id",
+            room_number,
+            children_number,
+          },
+        };
+      },
     }),
     getAllCities: builder.query({
       query: () => "static/cities",
@@ -23,4 +66,12 @@ export const hotelsApi = createApi({
   }),
 });
 
-export const { useGetAllHotelsQuery, useGetAllCitiesQuery } = hotelsApi;
+// destype bali = -2701757
+// destype yogyakarta = -2703546
+
+export const {
+  useGetAllHotelsQuery,
+  useGetAllCitiesQuery,
+  useGetSearchAllHotelQuery,
+  useGetDescriptionHotelQuery,
+} = hotelsApi;
