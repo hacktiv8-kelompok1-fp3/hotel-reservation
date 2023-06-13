@@ -17,6 +17,7 @@ import {
   removeFavorites,
 } from "../../redux/reducer/slice-favorites";
 import { useGetDescriptionHotelQuery } from "../../redux/reducer/slice-hotel";
+import { formatRupiah } from "../../utils/formatRupiah";
 
 const DetailHotel = ({ navigation, route }) => {
   const hotel = route.params;
@@ -105,7 +106,7 @@ const DetailHotel = ({ navigation, route }) => {
         <View style={styles.containerBooking}>
           <View style={styles.booking}>
             <Text style={{ fontSize: 18, color: mainColors.white }}>
-              {hotel.currencycode} {hotel.min_total_price}
+              {hotel.currencycode} {formatRupiah(hotel.min_total_price)}
             </Text>
             <Text
               style={{ fontSize: 12, color: mainColors.white, marginLeft: 5 }}

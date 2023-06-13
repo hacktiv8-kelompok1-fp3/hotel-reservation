@@ -18,6 +18,7 @@ import {
 } from "../../redux/reducer/slice-bookingData";
 import { addHistoryCheckout } from "../../redux/reducer/slice-historyCheckout";
 import mainColors from "../../utils/colors";
+import { formatRupiah } from "../../utils/formatRupiah";
 
 const Booking = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -131,7 +132,7 @@ const Booking = ({ navigation }) => {
           <View style={styles.footer}>
             <View>
               <Text style={{ color: mainColors.primary3, fontWeight: "bold" }}>
-                ${totalBooking}
+                {detailhotel.currencycode} {formatRupiah(totalBooking)}
               </Text>
               <Text style={{ color: mainColors.primary3, fontWeight: "bold" }}>
                 Total Price

@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import BookButton from "../../components/BookButton";
 import { removeFavorites } from "../../redux/reducer/slice-favorites";
 import mainColors from "../../utils/colors";
+import { formatRupiah } from "../../utils/formatRupiah";
 
 export default function WishlistScreen({ navigation }) {
   const dispatch = useDispatch();
@@ -55,7 +56,9 @@ export default function WishlistScreen({ navigation }) {
                         </Text>
                       </View>
                     </View>
-                    <Text style={styles.price}>IDR{item?.min_total_price}</Text>
+                    <Text style={styles.price}>
+                      {item.currencycode} {formatRupiah(item?.min_total_price)}
+                    </Text>
                   </View>
                   <View style={styles.actionContainer}>
                     <View style={{ alignItems: "center" }}>

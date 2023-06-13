@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import mainColors from "../../utils/colors";
+import { formatRupiah } from "../../utils/formatRupiah";
 
 const { width } = Dimensions.get("screen");
 
@@ -26,7 +27,7 @@ const Card = ({ hotel, navigation }) => {
         <Text style={styles.cardName}>{hotel.hotel_name}</Text>
         <View style={styles.cardContent}>
           <Text style={styles.cardPrice}>
-            {hotel.currency_code} {hotel.min_total_price}
+            {hotel.currency_code} {formatRupiah(hotel.min_total_price)}
           </Text>
           <Text style={styles.cardNight}>/night</Text>
         </View>

@@ -15,6 +15,7 @@ import mainColors from "../../utils/colors";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteHistoryCheckout } from "../../redux/reducer/slice-historyCheckout";
+import { formatRupiah } from "../../utils/formatRupiah";
 const { width } = Dimensions.get("screen");
 
 const MyOrder = ({ navigation }) => {
@@ -63,7 +64,9 @@ const MyOrder = ({ navigation }) => {
               </View>
               <View style={styles.conatinerPrice}>
                 <Text style={styles.priceDetails}>Price Details</Text>
-                <Text style={styles.priceCard}>IDR{item?.totalBooking}</Text>
+                <Text style={styles.priceCard}>
+                  {item.hotel.currencycode} {formatRupiah(item?.totalBooking)}
+                </Text>
               </View>
               <Pressable
                 onPress={() => navigation.navigate("OrderDetail", item)}
